@@ -1,0 +1,32 @@
+package com.example.blood_donation.controller;
+
+import com.example.blood_donation.dto.request.AccountRequest;
+import com.example.blood_donation.dto.response.ApiResponse;
+import com.example.blood_donation.entity.Account;
+import com.example.blood_donation.service.AccountService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/v1/account")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class AccountController {
+
+    AccountService accountService;
+
+//    @GetMapping
+//    public ApiResponse<List<Account>> getAccounts() {
+//        return ApiResponse.<Account>builder().result(accountService.getAllAccounts()).build();
+//    }
+    @PostMapping
+    public ApiResponse<Long> createAccount(@RequestBody AccountRequest request){
+        var result = accountService.createAccount(request);
+        return ApiResponse.<Long>builder().result(result).build();
+    }
+}
