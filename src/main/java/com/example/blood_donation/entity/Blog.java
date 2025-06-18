@@ -1,13 +1,12 @@
 package com.example.blood_donation.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Blog extends BaseEntity{
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
     private String title;
