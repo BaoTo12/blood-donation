@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public abstract class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountService {
 
     AccountRepository accountRepository;
     AccountMapper mapper;

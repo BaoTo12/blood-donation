@@ -4,6 +4,7 @@ import com.example.blood_donation.dto.request.AccountRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +26,7 @@ public class AccountController {
 //        return ApiResponse.<Account>builder().result(accountService.getAllAccounts()).build();
 //    }
     @PostMapping
-    public ApiResponse<Long> createAccount(@RequestBody AccountRequest request){
+    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountRequest request){
         var result = accountService.createAccount(request);
         return ApiResponse.<Long>builder().result(result).build();
     }
