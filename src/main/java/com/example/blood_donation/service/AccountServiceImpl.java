@@ -25,6 +25,8 @@ public class AccountServiceImpl implements AccountService {
     public Long createAccount(AccountRequest request) {
         Account account = mapper.toAccount(request);
         Account savedAccount = accountRepository.save(account);
+        System.out.println("AccountRequest: " + request);
+        System.out.println("Account: " + account);
         return savedAccount.getId();
     }
 

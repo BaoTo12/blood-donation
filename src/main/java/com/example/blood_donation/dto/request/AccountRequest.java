@@ -6,11 +6,9 @@ import com.example.blood_donation.enumType.Role;
 import com.example.blood_donation.validation.EnumValue;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class AccountRequest {
     @NotNull
     private String name;
@@ -25,6 +23,7 @@ public class AccountRequest {
     private Gender gender;
 
     private String address;
+
     @EnumValue(name = "role", enumClass = Role.class)
     private String role;
 
