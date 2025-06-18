@@ -25,6 +25,7 @@ public class AccountController {
     public ApiResponse<List<Account>> getAccounts() {
         return ApiResponse.<List<Account>>builder().result(accountService.getAllAccounts()).build();
     }
+
     @PostMapping
     public ApiResponse<Long> createAccount(@Valid @RequestBody AccountRequest request){
         var result = accountService.createAccount(request);
