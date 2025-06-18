@@ -2,7 +2,9 @@ package com.example.blood_donation.service;
 
 
 import com.example.blood_donation.dto.request.AccountRequest;
+import com.example.blood_donation.dto.response.AccountResponse;
 import com.example.blood_donation.entity.Account;
+import com.example.blood_donation.exception.ResourceNotFoundException;
 import com.example.blood_donation.mapper.AccountMapper;
 import com.example.blood_donation.repository.AccountRepository;
 import lombok.AccessLevel;
@@ -11,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,5 +36,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public AccountResponse getAccountById(Long id) {
+        Optional<Account> account = accountRepository.findById(id);
+        if (account.isEmpty()){
+            throw  new ResourceNotFoundException("There is not account with id: " + id);
+        }
+        return mapper.toAccountResponse(account.get());
     }
 }
