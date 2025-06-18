@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
+@DynamicUpdate
 public class Account extends BaseEntity {
 
     private String role;
