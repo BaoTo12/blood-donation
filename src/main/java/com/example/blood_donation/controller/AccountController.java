@@ -44,4 +44,10 @@ public class AccountController {
         accountService.updateAccount(request, id);
         return ApiResponse.<String>builder().result("Updated account successfully").build();
     }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deleteAccount(@PathVariable Long id){
+        accountService.deleteAccount(id);
+        return ApiResponse.<String>builder().result("Delete account successfully").build();
+    }
 }
