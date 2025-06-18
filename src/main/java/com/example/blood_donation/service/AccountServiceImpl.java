@@ -1,7 +1,7 @@
 package com.example.blood_donation.service;
 
 
-import com.example.blood_donation.dto.request.AccountRequest;
+import com.example.blood_donation.dto.request.AccountCreationRequest;
 import com.example.blood_donation.dto.response.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.exception.ResourceNotFoundException;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class AccountServiceImpl implements AccountService {
     AccountMapper mapper;
 
     @Override
-    public Long createAccount(AccountRequest request) {
+    public Long createAccount(AccountCreationRequest request) {
         Account account = mapper.toAccount(request);
         Account savedAccount = accountRepository.save(account);
         System.out.println("AccountRequest: " + request);

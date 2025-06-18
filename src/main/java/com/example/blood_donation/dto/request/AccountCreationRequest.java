@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AccountRequest {
+public class AccountCreationRequest {
     @NotNull
     private String name;
     @NotNull

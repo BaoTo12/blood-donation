@@ -1,13 +1,12 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.AccountRequest;
+import com.example.blood_donation.dto.request.AccountCreationRequest;
 import com.example.blood_donation.dto.response.AccountResponse;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +28,13 @@ public class AccountController {
     }
 
     @PostMapping
-    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountRequest request){
+    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountCreationRequest request){
         var result = accountService.createAccount(request);
         return ApiResponse.<Long>builder().result(result).build();
     }
 
     @GetMapping("/{id}")
     public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id){
-
         return ApiResponse.<AccountResponse>builder().result(accountService.getAccountById(id)).build();
     }
 }
