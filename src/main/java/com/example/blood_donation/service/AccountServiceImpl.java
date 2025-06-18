@@ -2,6 +2,7 @@ package com.example.blood_donation.service;
 
 
 import com.example.blood_donation.dto.request.AccountCreationRequest;
+import com.example.blood_donation.dto.request.AccountUpdateRequest;
 import com.example.blood_donation.dto.response.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.exception.ResourceNotFoundException;
@@ -44,5 +45,14 @@ public class AccountServiceImpl implements AccountService {
             throw  new ResourceNotFoundException("There is not account with id: " + id);
         }
         return mapper.toAccountResponse(account.get());
+    }
+
+    @Override
+    public void updateAccount(AccountUpdateRequest request, Long id) {
+        Account existingAccount = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("There is not account with id: " + id));
+        mapper.updateFromDto(request, existingAccount);
+
+        accountRepository.save(existingAccount);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.blood_donation.controller;
 
 import com.example.blood_donation.dto.request.AccountCreationRequest;
+import com.example.blood_donation.dto.request.AccountUpdateRequest;
 import com.example.blood_donation.dto.response.AccountResponse;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.entity.Account;
@@ -36,5 +37,11 @@ public class AccountController {
     @GetMapping("/{id}")
     public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id){
         return ApiResponse.<AccountResponse>builder().result(accountService.getAccountById(id)).build();
+    }
+
+    @PatchMapping("/{id}")
+    public ApiResponse<String> updateAccount(@PathVariable Long id, @RequestBody AccountUpdateRequest request){
+        accountService.updateAccount(request, id);
+        return ApiResponse.<String>builder().result("Updated account successfully").build();
     }
 }
