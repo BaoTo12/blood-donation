@@ -1,21 +1,20 @@
-package com.example.blood_donation.dto.request;
+package com.example.blood_donation.dto.request.account;
 
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.Gender;
-import com.example.blood_donation.enumType.Role;
 import com.example.blood_donation.validation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AccountCreationRequest {
-    @NotNull
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class AccountUpdateRequest {
+
     private String name;
-    @NotNull
     private String email;
-    @Min(value = 8)
-    @NotNull
+
+    @Min(8)
     private String password;
 
     private String phone;
@@ -23,9 +22,6 @@ public class AccountCreationRequest {
     private Gender gender;
 
     private String address;
-
-    @EnumValue(name = "role", enumClass = Role.class)
-    private String role;
 
     @EnumValue(name = "blood_group", enumClass = BloodGroup.class)
     private String bloodGroup;
