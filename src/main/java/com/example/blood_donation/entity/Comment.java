@@ -17,7 +17,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private Account account;
 
