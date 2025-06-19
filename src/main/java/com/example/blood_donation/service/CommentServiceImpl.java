@@ -1,6 +1,6 @@
 package com.example.blood_donation.service;
 
-import com.example.blood_donation.dto.request.CommentRequest;
+import com.example.blood_donation.dto.request.comment.CommentRequest;
 import com.example.blood_donation.entity.Comment;
 import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;

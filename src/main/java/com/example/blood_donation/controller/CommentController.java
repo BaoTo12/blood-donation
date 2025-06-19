@@ -1,7 +1,7 @@
 package com.example.blood_donation.controller;
 
 
-import com.example.blood_donation.dto.request.CommentRequest;
+import com.example.blood_donation.dto.request.comment.CommentRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.service.CommentService;
 import jakarta.validation.Valid;

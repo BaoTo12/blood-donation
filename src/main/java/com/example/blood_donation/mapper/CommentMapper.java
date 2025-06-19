@@ -1,6 +1,6 @@
 package com.example.blood_donation.mapper;
 
-import com.example.blood_donation.dto.request.CommentRequest;
+import com.example.blood_donation.dto.request.comment.CommentRequest;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.entity.Comment;
