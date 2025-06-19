@@ -4,11 +4,15 @@ package com.example.blood_donation.entity;
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.RequestPriority;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "blood_request")
+@Getter
+@Setter
 public class BloodRequest extends BaseEntity {
 
     @OneToOne
