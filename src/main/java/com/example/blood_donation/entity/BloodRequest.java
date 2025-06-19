@@ -14,11 +14,9 @@ public class BloodRequest extends BaseEntity {
     @OneToOne
     private Account account;
 
-    @Enumerated(EnumType.STRING)
-    private RequestPriority priority;
+    private String priority;
 
-    @Enumerated(EnumType.STRING)
-    private BloodGroup bloodGroup;
+    private String bloodGroup;
 
     @Column(nullable = false)
     private String title;
