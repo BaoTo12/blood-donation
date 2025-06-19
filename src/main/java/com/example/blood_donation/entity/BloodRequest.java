@@ -4,21 +4,25 @@ package com.example.blood_donation.entity;
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.RequestPriority;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "blood_request")
+@Getter
+@Setter
+@DynamicUpdate
 public class BloodRequest extends BaseEntity {
 
     @OneToOne
     private Account account;
 
-    @Enumerated(EnumType.STRING)
-    private RequestPriority priority;
+    private String priority;
 
-    @Enumerated(EnumType.STRING)
-    private BloodGroup bloodGroup;
+    private String bloodGroup;
 
     @Column(nullable = false)
     private String title;
