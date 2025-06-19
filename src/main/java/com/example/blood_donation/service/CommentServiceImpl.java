@@ -1,10 +1,12 @@
 package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
+import com.example.blood_donation.dto.request.comment.CommentUpdateRequest;
 import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Comment;
 import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,5 +36,11 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentResponse> getCommentByBlogId(Long id) {
         List<Comment> comments = commentRepository.findCommentByBlogIdWithAccount(id);
         return comments.stream().map(mapper::toCommentResponse).toList();
+    }
+
+    @Override
+    @Transactional
+    public Integer updateComment(Long id, CommentUpdateRequest request) {
+        return commentRepository.updateComment(request.getContent(), id);
     }
 }

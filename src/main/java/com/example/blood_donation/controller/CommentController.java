@@ -2,6 +2,7 @@ package com.example.blood_donation.controller;
 
 
 import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
+import com.example.blood_donation.dto.request.comment.CommentUpdateRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.service.CommentService;
@@ -21,13 +22,19 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping
-    public ApiResponse<Long> createComment(@RequestBody @Valid CommentCreationRequest request){
+    public ApiResponse<Long> createComment(@RequestBody @Valid CommentCreationRequest request) {
         Long id = commentService.createComment(request);
         return ApiResponse.<Long>builder().result(id).build();
     }
 
     @GetMapping("/{blogId}")
-    public ApiResponse<List<CommentResponse>> getCommentsByBlogId(@PathVariable Long blogId){
+    public ApiResponse<List<CommentResponse>> getCommentsByBlogId(@PathVariable Long blogId) {
         return ApiResponse.<List<CommentResponse>>builder().result(commentService.getCommentByBlogId(blogId)).build();
+    }
+
+    @PatchMapping("/{commentId}")
+    public ApiResponse<?> updateComment(@PathVariable() Long commentId, @RequestBody CommentUpdateRequest request) {
+        Integer result = commentService.updateComment(commentId, request);
+        return ApiResponse.builder().result(result).build();
     }
 }
