@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 public class BloodRequestCreationRequest {
     @NotNull
-    private Account account;
+    private String account_id;
 
     @EnumValue(name = "priority", enumClass = RequestPriority.class)
     @NotNull
