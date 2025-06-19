@@ -42,5 +42,10 @@ public class BlogServiceImpl implements BlogService {
         Blog blog = blogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
         return mapper.toBlogResponse(blog);
     }
+
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
 }
 

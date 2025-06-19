@@ -38,4 +38,9 @@ public class BlogController {
 
         return ApiResponse.<BlogResponse>builder().result(blogService.getBlogById(id)).build();
     }
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deleteBlog(@PathVariable Long id){
+        blogService.deleteBlog(id);
+        return ApiResponse.<String>builder().result("Deleted Blog Successfully").build();
+    }
 }

@@ -9,4 +9,5 @@ public interface BlogService {
     Long createBlog(BlogCreationRequest request);
     List<BlogResponse> getAllBlogs();
     BlogResponse getBlogById(Long id);
+    void deleteBlog(Long id);
 }
