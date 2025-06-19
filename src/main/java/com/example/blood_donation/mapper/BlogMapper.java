@@ -1,6 +1,7 @@
 package com.example.blood_donation.mapper;
 
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
+import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.exception.ResourceNotFoundException;
@@ -22,4 +23,6 @@ public abstract class BlogMapper {
         return accountRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Account not found: " + id));
     }
+
+    public abstract BlogResponse toBlogResponse(Blog blog);
 }
