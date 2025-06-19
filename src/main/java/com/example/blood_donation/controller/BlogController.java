@@ -1,6 +1,7 @@
 package com.example.blood_donation.controller;
 
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
+import com.example.blood_donation.dto.request.blog.BlogUpdateRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.service.BlogService;
@@ -29,18 +30,25 @@ public class BlogController {
     }
 
     @GetMapping
-    public ApiResponse<List<BlogResponse>> getAllBlogs(){
+    public ApiResponse<List<BlogResponse>> getAllBlogs() {
         return ApiResponse.<List<BlogResponse>>builder().result(blogService.getAllBlogs()).build();
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<BlogResponse> getBlogById(@PathVariable Long id){
+    public ApiResponse<BlogResponse> getBlogById(@PathVariable Long id) {
 
         return ApiResponse.<BlogResponse>builder().result(blogService.getBlogById(id)).build();
     }
+
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteBlog(@PathVariable Long id){
+    public ApiResponse<String> deleteBlog(@PathVariable Long id) {
         blogService.deleteBlog(id);
         return ApiResponse.<String>builder().result("Deleted Blog Successfully").build();
+    }
+
+    @PatchMapping("/{id}")
+    public ApiResponse<String> updateBlog(@PathVariable Long id, @RequestBody BlogUpdateRequest request) {
+        blogService.updateBlog(id, request);
+        return ApiResponse.<String>builder().build();
     }
 }

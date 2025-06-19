@@ -1,6 +1,7 @@
 package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
+import com.example.blood_donation.dto.request.blog.BlogUpdateRequest;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.exception.ResourceNotFoundException;
@@ -25,9 +26,6 @@ public class BlogServiceImpl implements BlogService {
     public Long createBlog(BlogCreationRequest request) {
         Blog blog = mapper.toBlog(request);
         Blog savedBlog = blogRepository.save(blog);
-        System.out.println("request: " + request);
-        System.out.println("blog: " + blog);
-        System.out.println("savedBlog: " + savedBlog);
         return savedBlog.getId();
     }
 
@@ -46,6 +44,15 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateBlog(Long id, BlogUpdateRequest request) {
+        Blog existingBlog = blogRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
+        mapper.updateFromDto(request, existingBlog);
+
+        blogRepository.save(existingBlog);
     }
 }
 
