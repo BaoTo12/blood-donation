@@ -38,4 +38,10 @@ public class BloodRequestController {
         bloodRequestService.updateBloodRequest(id, request);
         return ApiResponse.<String>builder().result("Update Blood Request Successfully").build();
     }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deleteBloodRequest(@PathVariable Long id){
+        bloodRequestService.deleteBloodRequest(id);
+        return ApiResponse.<String>builder().build();
+    }
 }

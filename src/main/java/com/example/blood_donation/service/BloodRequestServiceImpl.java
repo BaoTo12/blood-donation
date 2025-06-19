@@ -43,4 +43,9 @@ public class BloodRequestServiceImpl implements BloodRequestService {
         mapper.updateFromDto(request, bloodRequest);
         bloodRequestRepository.save(bloodRequest);
     }
+
+    @Override
+    public void deleteBloodRequest(Long id) {
+        bloodRequestRepository.deleteById(id);
+    }
 }

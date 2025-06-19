@@ -10,4 +10,5 @@ public interface BloodRequestService {
     Long createBloodRequest(BloodRequestCreationRequest request);
     List<BloodRequestResponse> getAllBloodRequests();
     void updateBloodRequest(Long id, BloodRequestUpdateRequest request);
+    void deleteBloodRequest(Long id);
 }
