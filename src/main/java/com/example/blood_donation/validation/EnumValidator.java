@@ -22,8 +22,6 @@ public class EnumValidator implements ConstraintValidator<EnumValue, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        System.out.println("VALUE: " + value);
-        acceptedValues.forEach(System.out::println);
         if (value == null || value.isBlank()) {
             return false;
         }
