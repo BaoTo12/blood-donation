@@ -3,10 +3,10 @@ package com.example.blood_donation.controller;
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
-import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.service.BlogService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +31,11 @@ public class BlogController {
     @GetMapping
     public ApiResponse<List<BlogResponse>> getAllBlogs(){
         return ApiResponse.<List<BlogResponse>>builder().result(blogService.getAllBlogs()).build();
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<BlogResponse> getBlogById(@PathVariable Long id){
+
+        return ApiResponse.<BlogResponse>builder().result(blogService.getBlogById(id)).build();
     }
 }

@@ -3,6 +3,7 @@ package com.example.blood_donation.service;
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.entity.Blog;
+import com.example.blood_donation.exception.ResourceNotFoundException;
 import com.example.blood_donation.mapper.BlogMapper;
 import com.example.blood_donation.repository.BlogRepository;
 import lombok.AccessLevel;
@@ -34,6 +35,12 @@ public class BlogServiceImpl implements BlogService {
     public List<BlogResponse> getAllBlogs() {
         List<Blog> blogs = blogRepository.findAll();
         return blogs.stream().map(mapper::toBlogResponse).toList();
+    }
+
+    @Override
+    public BlogResponse getBlogById(Long id) {
+        Blog blog = blogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
+        return mapper.toBlogResponse(blog);
     }
 }
 
