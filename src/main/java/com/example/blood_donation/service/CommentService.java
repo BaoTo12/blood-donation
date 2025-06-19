@@ -10,4 +10,5 @@ public interface CommentService {
     Long createComment(CommentCreationRequest request);
     List<CommentResponse> getCommentByBlogId(Long id);
     Integer updateComment(Long id, CommentUpdateRequest request);
+    void deleteComment(Long id);
 }

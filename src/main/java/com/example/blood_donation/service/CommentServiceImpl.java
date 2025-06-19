@@ -43,4 +43,9 @@ public class CommentServiceImpl implements CommentService {
     public Integer updateComment(Long id, CommentUpdateRequest request) {
         return commentRepository.updateComment(request.getContent(), id);
     }
+
+    @Override
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
+    }
 }

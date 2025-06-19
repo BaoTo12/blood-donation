@@ -37,4 +37,10 @@ public class CommentController {
         Integer result = commentService.updateComment(commentId, request);
         return ApiResponse.builder().result(result).build();
     }
+
+    @DeleteMapping("/{commentId}")
+    public ApiResponse<String> deleteComment(@PathVariable Long commentId){
+        commentService.deleteComment(commentId);
+        return ApiResponse.<String>builder().build();
+    }
 }
