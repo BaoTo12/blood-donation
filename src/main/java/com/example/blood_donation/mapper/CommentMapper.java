@@ -1,6 +1,7 @@
 package com.example.blood_donation.mapper;
 
 import com.example.blood_donation.dto.request.comment.CommentRequest;
+import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.entity.Comment;
@@ -25,4 +26,7 @@ public abstract class CommentMapper {
     protected Account fetchAccountReference(Long id){
         return entityManager.getReference(Account.class, id);
     }
+
+
+    public abstract CommentResponse toCommentResponse(Comment comment);
 }
