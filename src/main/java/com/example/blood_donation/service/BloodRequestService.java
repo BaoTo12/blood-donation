@@ -1,6 +1,7 @@
 package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationRequest;
+import com.example.blood_donation.dto.request.BloodRequest.BloodRequestUpdateRequest;
 import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
 
 import java.util.List;
@@ -8,4 +9,5 @@ import java.util.List;
 public interface BloodRequestService {
     Long createBloodRequest(BloodRequestCreationRequest request);
     List<BloodRequestResponse> getAllBloodRequests();
+    void updateBloodRequest(Long id, BloodRequestUpdateRequest request);
 }

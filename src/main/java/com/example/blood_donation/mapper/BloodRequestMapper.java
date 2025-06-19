@@ -1,12 +1,12 @@
 package com.example.blood_donation.mapper;
 
 import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationRequest;
+import com.example.blood_donation.dto.request.BloodRequest.BloodRequestUpdateRequest;
 import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.BloodRequest;
 import jakarta.persistence.EntityManager;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
@@ -23,4 +23,9 @@ public abstract class BloodRequestMapper {
     }
 
     public abstract BloodRequestResponse toBloodRequestResponse(BloodRequest bloodRequest);
+
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract void updateFromDto(BloodRequestUpdateRequest request
+            ,@MappingTarget BloodRequest bloodRequest);
 }

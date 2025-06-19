@@ -1,6 +1,7 @@
 package com.example.blood_donation.controller;
 
 import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationRequest;
+import com.example.blood_donation.dto.request.BloodRequest.BloodRequestUpdateRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
 import com.example.blood_donation.service.BloodRequestService;
@@ -30,5 +31,11 @@ public class BloodRequestController {
     public ApiResponse<List<BloodRequestResponse>> getAllBloodRequests(){
         return ApiResponse.<List<BloodRequestResponse>>builder()
                 .result(bloodRequestService.getAllBloodRequests()).build();
+    }
+
+    @PatchMapping("/{id}")
+    public ApiResponse<String> updateBloodRequest(@PathVariable Long id, @RequestBody BloodRequestUpdateRequest request){
+        bloodRequestService.updateBloodRequest(id, request);
+        return ApiResponse.<String>builder().result("Update Blood Request Successfully").build();
     }
 }
