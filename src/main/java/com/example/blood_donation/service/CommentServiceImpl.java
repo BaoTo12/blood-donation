@@ -1,6 +1,6 @@
 package com.example.blood_donation.service;
 
-import com.example.blood_donation.dto.request.comment.CommentRequest;
+import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
 import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Comment;
 import com.example.blood_donation.mapper.CommentMapper;
@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     CommentMapper mapper;
 
     @Override
-    public Long createComment(CommentRequest request) {
+    public Long createComment(CommentCreationRequest request) {
         Comment comment = mapper.toComment(request);
         Comment savedComment;
         savedComment = commentRepository.save(comment);

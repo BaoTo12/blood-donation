@@ -1,6 +1,6 @@
 package com.example.blood_donation.mapper;
 
-import com.example.blood_donation.dto.request.comment.CommentRequest;
+import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
 import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
@@ -17,7 +17,7 @@ public abstract class CommentMapper {
 
     @Mapping(target = "account",  expression = "java(fetchAccountReference(request.getAccount_id()))")
     @Mapping(target = "blog", expression = "java(fetchBlogReference(request.getBlog_id()))")
-    public abstract Comment toComment(CommentRequest request);
+    public abstract Comment toComment(CommentCreationRequest request);
 
 
     protected Blog fetchBlogReference(Long id){

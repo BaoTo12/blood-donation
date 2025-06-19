@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CommentRequest {
+public class CommentCreationRequest {
     @NotNull
     private Long blog_id;
 
