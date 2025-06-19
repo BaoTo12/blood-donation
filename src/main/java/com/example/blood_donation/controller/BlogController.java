@@ -24,4 +24,5 @@ public class BlogController {
         Long id = blogService.createBlog(request);
         return ApiResponse.<Long>builder().result(id).build();
     }
+
 }
