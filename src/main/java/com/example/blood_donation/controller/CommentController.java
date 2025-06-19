@@ -22,6 +22,7 @@ public class CommentController {
 
     @PostMapping
     public ApiResponse<Long> createComment(@RequestBody @Valid CommentRequest request){
-        return ApiResponse.<Long>builder().build();
+        Long id = commentService.createComment(request);
+        return ApiResponse.<Long>builder().result(id).build();
     }
 }

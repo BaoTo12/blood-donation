@@ -1,11 +1,14 @@
 package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.CommentRequest;
+import com.example.blood_donation.entity.Comment;
+import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
 
 @Service
 @RequiredArgsConstructor
@@ -13,9 +16,14 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl implements CommentService {
 
     CommentRepository commentRepository;
+    CommentMapper mapper;
 
     @Override
     public Long createComment(CommentRequest request) {
-        return 0L;
+        Comment comment = mapper.toComment(request);
+        Comment savedComment;
+        savedComment = commentRepository.save(comment);
+        // this can throw SQLIntegrityConstraintViolationException
+        return savedComment.getId();
     }
 }
