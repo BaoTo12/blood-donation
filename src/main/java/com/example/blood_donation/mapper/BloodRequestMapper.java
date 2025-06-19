@@ -1,6 +1,7 @@
 package com.example.blood_donation.mapper;
 
 import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationRequest;
+import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.BloodRequest;
 import jakarta.persistence.EntityManager;
@@ -20,4 +21,6 @@ public abstract class BloodRequestMapper {
     protected Account fetchAccountReference(Long id){
         return entityManager.getReference(Account.class, id);
     }
+
+    public abstract BloodRequestResponse toBloodRequestResponse(BloodRequest bloodRequest);
 }
