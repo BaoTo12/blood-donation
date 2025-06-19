@@ -1,7 +1,11 @@
 package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
+import com.example.blood_donation.dto.response.blog.BlogResponse;
+
+import java.util.List;
 
 public interface BlogService {
     Long createBlog(BlogCreationRequest request);
+    List<BlogResponse> getAllBlogs();
 }
