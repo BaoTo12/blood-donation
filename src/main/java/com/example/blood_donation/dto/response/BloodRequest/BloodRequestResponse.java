@@ -1,6 +1,6 @@
 package com.example.blood_donation.dto.response.BloodRequest;
 
-import com.example.blood_donation.entity.Account;
+import com.example.blood_donation.dto.response.account.AccountResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class BloodRequestResponse {
-    private Account account;
+    private AccountResponse account;
 
     private String priority;
 

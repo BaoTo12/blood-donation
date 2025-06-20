@@ -2,6 +2,8 @@ package com.example.blood_donation.entity;
 
 import com.example.blood_donation.enumType.AppointmentStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(
@@ -10,11 +12,13 @@ import jakarta.persistence.*;
                 columnNames = {"request_id", "member_id"}
         )
 )
+@Setter
+@Getter
 public class Appointment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
-            name = "member_id",
+            name = "account_id",
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_appointment_member")
     )
@@ -29,5 +33,5 @@ public class Appointment extends BaseEntity {
     private BloodRequest bloodRequest;
 
 
-    private AppointmentStatus status;
+    private String status;
 }
