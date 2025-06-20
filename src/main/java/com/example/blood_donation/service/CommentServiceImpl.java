@@ -6,11 +6,11 @@ import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Comment;
 import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Transactional
 public class CommentServiceImpl implements CommentService {
 
     CommentRepository commentRepository;
@@ -33,13 +34,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CommentResponse> getCommentByBlogId(Long id) {
         List<Comment> comments = commentRepository.findCommentByBlogIdWithAccount(id);
         return comments.stream().map(mapper::toCommentResponse).toList();
     }
 
     @Override
-    @Transactional
     public Integer updateComment(Long id, CommentUpdateRequest request) {
         return commentRepository.updateComment(request.getContent(), id);
     }

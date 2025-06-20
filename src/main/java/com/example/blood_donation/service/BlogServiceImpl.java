@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Transactional
 public class BlogServiceImpl implements BlogService {
     BlogRepository blogRepository;
     BlogMapper mapper;
@@ -30,12 +32,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BlogResponse> getAllBlogs() {
         List<Blog> blogs = blogRepository.findAll();
         return blogs.stream().map(mapper::toBlogResponse).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BlogResponse getBlogById(Long id) {
         Blog blog = blogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
         return mapper.toBlogResponse(blog);
