@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     AccountRepository accountRepository;
@@ -34,11 +36,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AccountResponse getAccountById(Long id) {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isEmpty()){
