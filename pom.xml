@@ -80,6 +80,18 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<!--		Spring Security-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>10.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
