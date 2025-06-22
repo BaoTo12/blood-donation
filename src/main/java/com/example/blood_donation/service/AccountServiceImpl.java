@@ -11,6 +11,7 @@ import com.example.blood_donation.repository.AccountRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +26,13 @@ public class AccountServiceImpl implements AccountService {
 
     AccountRepository accountRepository;
     AccountMapper mapper;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public Long createAccount(AccountCreationRequest request) {
         Account account = mapper.toAccount(request);
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account savedAccount = accountRepository.save(account);
-        System.out.println("AccountRequest: " + request);
-        System.out.println("Account: " + account);
         return savedAccount.getId();
     }
 
