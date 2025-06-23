@@ -74,13 +74,21 @@ public class SecurityConfig {
         /*
         * BearerTokenAuthenticationFilter --> AuthenticationManager --> JwtAuthenticationProvider
         * --> uses NimbusJwtDecoder and JWS verification
+        * JWT Parsing: Your token is decoded and verified
+            Claims Extraction: Spring extracts the "scope" claim containing "ADMIN"
+            Authority Conversion: Each scope value gets prefixed with "SCOPE_"
+            Authentication Object Creation: A 'JwtAuthenticationToken' is created with:
+            Name: JWT subject (admin@gmail.com)
+            Authorities: Collection of SimpleGrantedAuthority objects
+            * JwtAuthenticationToken is stored in SecurityContextHolder
+            * Controller Access: Your controller retrieves the authentication object
          * */
         httpSecurity.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
 
         return httpSecurity.build();
     }
-
+    // handles token verification
     @Bean
     public JwtDecoder jwtDecoder() {
         SecretKeySpec secretKeySpec = new SecretKeySpec(singerKey.getBytes(), "HS512");
@@ -89,5 +97,5 @@ public class SecurityConfig {
                 .macAlgorithm(MacAlgorithm.HS512)
                 .build();
     }
-
+    //
 }
