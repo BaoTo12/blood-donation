@@ -22,11 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.StringJoiner;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +52,7 @@ public class AuthenticationService {
         if (!authenticated)
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
-        String token = generateToken(request.getEmail());
+        String token = generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(token)
@@ -70,17 +72,17 @@ public class AuthenticationService {
         return IntrospectResponse.builder().valid(valid).build();
     }
 
-    private String generateToken(String username) {
+    private String generateToken(Account account) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(username) // for user information
+                .subject(account.getEmail()) // for user information
                 .issuer("chibaosan.com") // to define who issues the token
                 .issueTime(new Date()) // the time issue the token
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("baoto", "baoto") // -- > custom claim
+                .claim("scope", buildScope(account)) // -- > custom claim
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -98,4 +100,16 @@ public class AuthenticationService {
             throw new RuntimeException(e);
         }
     }
+
+    private String buildScope(Account account){
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        if (!CollectionUtils.isEmpty(account.getRoles())){
+            account.getRoles().forEach(role -> {
+                System.err.println(role);
+                stringJoiner.add(role.getName());
+            });
+        }
+        return stringJoiner.toString();
+    }
+
 }
