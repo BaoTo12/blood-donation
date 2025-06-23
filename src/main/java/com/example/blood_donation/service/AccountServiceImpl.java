@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -67,7 +68,9 @@ public class AccountServiceImpl implements AccountService {
         Account existingAccount = accountRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("There is not account with id: " + id));
         mapper.updateFromDto(request, existingAccount);
-
+        if (!Objects.isNull(request.getPassword())){
+            existingAccount.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
         accountRepository.save(existingAccount);
     }
 
