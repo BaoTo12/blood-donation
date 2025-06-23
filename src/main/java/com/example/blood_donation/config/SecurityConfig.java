@@ -1,5 +1,6 @@
 package com.example.blood_donation.config;
 
+import com.nimbusds.jose.JWSAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +13,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Arrays;
+import javax.crypto.spec.SecretKeySpec;
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,7 +28,8 @@ public class SecurityConfig {
 
     @Value("${api.base-path}")
     private String apiVersion;
-
+    @Value("${jwt.signer-key}")
+    private String singerKey;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -57,8 +63,31 @@ public class SecurityConfig {
                                         .anyRequest().authenticated()
                 );
 
+        //Tells Spring Security “when you see a Bearer token, hand it to this JwtDecoder
+        // → give me an Authentication or fail.”
+        // default flow
+        /*
+        *  AuthenticationFilter --> AuthenticationManager --> AuthenticationProvider
+        * --> DaoAuthenticationProvider uses UserDetailsService and PasswordEncoder
+        * */
+        // JWT flow
+        /*
+        * BearerTokenAuthenticationFilter --> AuthenticationManager --> JwtAuthenticationProvider
+        * --> uses NimbusJwtDecoder and JWS verification
+         * */
+        httpSecurity.oauth2ResourceServer(oauth2 ->
+                oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
+
         return httpSecurity.build();
     }
 
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        SecretKeySpec secretKeySpec = new SecretKeySpec(singerKey.getBytes(), "HS512");
+        return NimbusJwtDecoder
+                .withSecretKey(secretKeySpec)
+                .macAlgorithm(MacAlgorithm.HS512)
+                .build();
+    }
 
 }
