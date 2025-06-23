@@ -58,18 +58,19 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        auth ->
-                                auth.requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
-                                        .anyRequest().authenticated()
+                        auth -> auth
+                                .requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
+                                .requestMatchers(HttpMethod.GET, apiVersion + "/account").hasAuthority("SCOPE_ADMIN")
+                                .anyRequest().authenticated()
                 );
 
         //Tells Spring Security “when you see a Bearer token, hand it to this JwtDecoder
         // → give me an Authentication or fail.”
         // default flow
         /*
-        *  AuthenticationFilter --> AuthenticationManager --> AuthenticationProvider
-        * --> DaoAuthenticationProvider uses UserDetailsService and PasswordEncoder
-        * */
+         *  AuthenticationFilter --> AuthenticationManager --> AuthenticationProvider
+         * --> DaoAuthenticationProvider uses UserDetailsService and PasswordEncoder
+         * */
         // JWT flow
         /*
         * BearerTokenAuthenticationFilter --> AuthenticationManager --> JwtAuthenticationProvider
@@ -88,6 +89,7 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
     // handles token verification
     @Bean
     public JwtDecoder jwtDecoder() {
