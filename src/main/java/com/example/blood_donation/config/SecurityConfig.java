@@ -1,5 +1,6 @@
 package com.example.blood_donation.config;
 
+import com.example.blood_donation.enumType.PreDefinedRole;
 import com.nimbusds.jose.JWSAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -60,7 +63,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(HttpMethod.POST, publicEndpoints).permitAll()
-                                .requestMatchers(HttpMethod.GET, apiVersion + "/account").hasAuthority("SCOPE_ADMIN")
+                                .requestMatchers(HttpMethod.GET, apiVersion + "/account")
+                                    .hasRole(PreDefinedRole.ADMIN.name())
                                 .anyRequest().authenticated()
                 );
 
@@ -85,7 +89,10 @@ public class SecurityConfig {
             * Controller Access: Your controller retrieves the authentication object
          * */
         httpSecurity.oauth2ResourceServer(oauth2 ->
-                oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
+                oauth2.jwt(jwtConfigurer -> jwtConfigurer
+                        .decoder(jwtDecoder())
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                ));
 
         return httpSecurity.build();
     }
@@ -99,5 +106,21 @@ public class SecurityConfig {
                 .macAlgorithm(MacAlgorithm.HS512)
                 .build();
     }
-    //
+
+    //BearerTokenAuthenticationFilter → JwtAuthenticationProvider →
+    // NimbusJwtDecoder → JwtAuthenticationConverter → SecurityContextHolder
+    // JwtAuthenticationConverter serves as a crucial bridge between JWT token claims and Spring Security's authorization system.
+    // it takes raw JWT payload and converts it into format that Spring Security expects
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        // This converter examines your JWT's claims and extracts authorities based on specific patterns.
+        // By default, it looks for claims named "scope" or "scp" and treats them as space-separated lists of authorities.
+        // change the prefix from "SCOPE_" to "ROLE_",
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+
+        return jwtAuthenticationConverter;
+    }
 }
