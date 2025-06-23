@@ -5,9 +5,12 @@ import com.example.blood_donation.dto.request.account.AccountCreationRequest;
 import com.example.blood_donation.dto.request.account.AccountUpdateRequest;
 import com.example.blood_donation.dto.response.account.AccountResponse;
 import com.example.blood_donation.entity.Account;
+import com.example.blood_donation.entity.Role;
+import com.example.blood_donation.enumType.PreDefinedRole;
 import com.example.blood_donation.exception.ResourceNotFoundException;
 import com.example.blood_donation.mapper.AccountMapper;
 import com.example.blood_donation.repository.AccountRepository;
+import com.example.blood_donation.repository.RoleRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,10 +30,15 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
     AccountMapper mapper;
     PasswordEncoder passwordEncoder;
+    RoleRepository roleRepository;
 
     @Override
     public Long createAccount(AccountCreationRequest request) {
         Account account = mapper.toAccount(request);
+        System.err.println(request.toString());
+        System.err.println(account.toString());
+        Role role = roleRepository.findByName(PreDefinedRole.MEMBER.name());
+        account.getRoles().add(role);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account savedAccount = accountRepository.save(account);
         return savedAccount.getId();
