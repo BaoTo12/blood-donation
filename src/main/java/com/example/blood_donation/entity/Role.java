@@ -1,15 +1,19 @@
 package com.example.blood_donation.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
-public class Role extends BaseEntity {
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Role {
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long id;
 
+    @NonNull
     @Column(unique = true, nullable = false)
     private String name;
 
