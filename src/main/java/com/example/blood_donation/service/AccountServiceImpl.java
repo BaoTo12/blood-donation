@@ -14,6 +14,8 @@ import com.example.blood_donation.repository.RoleRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +37,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Long createAccount(AccountCreationRequest request) {
         Account account = mapper.toAccount(request);
-        System.err.println(request.toString());
-        System.err.println(account.toString());
         Role role = roleRepository.findByName(PreDefinedRole.MEMBER.name());
         account.getRoles().add(role);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
@@ -46,12 +46,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
+    @PostAuthorize("returnObject.email == authentication.name")
     public AccountResponse getAccountById(Long id) {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isEmpty()){
