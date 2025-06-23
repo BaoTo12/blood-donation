@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"description"})
 public class Role {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
