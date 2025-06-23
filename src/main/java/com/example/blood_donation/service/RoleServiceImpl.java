@@ -25,7 +25,6 @@ public class RoleServiceImpl implements RoleService {
 
     public RoleResponse create(RoleRequest request){
         var role = roleMapper.toRole(request);
-
         var permissions = permissionRepository.findAllByNameIn(request.getPermissions().stream().toList());
         role.setPermissions(new HashSet<>(permissions));
 
@@ -41,6 +40,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public void delete(String roleName){
-        roleRepository.deleteByName(roleName);
+        roleRepository.deleteById(roleName);
     }
 }

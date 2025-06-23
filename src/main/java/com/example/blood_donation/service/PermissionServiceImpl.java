@@ -34,6 +34,6 @@ public class PermissionServiceImpl implements PermissionService{
     }
 
     public void delete(String permission){
-        permissionRepository.deleteByName(permission);
+        permissionRepository.deleteById(permission);
     }
 }
