@@ -13,6 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -50,6 +51,6 @@ public class Account extends BaseEntity {
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns =  @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 }
