@@ -15,5 +15,6 @@ public interface AccountMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "roles", ignore = true)
     void updateFromDto(AccountUpdateRequest request, @MappingTarget Account account);
 }
