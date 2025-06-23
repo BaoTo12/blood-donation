@@ -3,12 +3,8 @@ package com.example.blood_donation.entity;
 
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.Gender;
-import com.example.blood_donation.enumType.Role;
 import com.example.blood_donation.validation.EnumValue;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +12,8 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,7 +22,6 @@ import java.time.LocalDate;
 @DynamicUpdate
 public class Account extends BaseEntity {
 
-    private String role;
 
     private String email;
 
@@ -46,5 +43,13 @@ public class Account extends BaseEntity {
 
     @Column(name = "is_active", nullable = false)
     private boolean active = true;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns =  @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
 }
