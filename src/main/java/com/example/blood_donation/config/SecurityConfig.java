@@ -2,6 +2,7 @@ package com.example.blood_donation.config;
 
 import com.example.blood_donation.enumType.PreDefinedRole;
 import com.nimbusds.jose.JWSAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,8 +34,9 @@ public class SecurityConfig {
 
     @Value("${api.base-path}")
     private String apiVersion;
-    @Value("${jwt.signer-key}")
-    private String singerKey;
+
+    @Autowired
+    CustomJwtDecoder customJwtDecoder;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,7 +55,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        String[] baseEndpoints = {"/users", "/auth/token", "/auth/introspect"};
+        String[] baseEndpoints = {"/users", "/auth/token", "/auth/introspect", "/auth/logout"};
 
         // Build versioned endpoints dynamically
         String[] publicEndpoints = java.util.Arrays.stream(baseEndpoints)
@@ -92,21 +94,11 @@ public class SecurityConfig {
          * */
         httpSecurity.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer -> jwtConfigurer
-                        .decoder(jwtDecoder())
+                        .decoder(customJwtDecoder)
                         .jwtAuthenticationConverter(jwtAuthenticationConverter())
                 ));
 
         return httpSecurity.build();
-    }
-
-    // handles token verification
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(singerKey.getBytes(), "HS512");
-        return NimbusJwtDecoder
-                .withSecretKey(secretKeySpec)
-                .macAlgorithm(MacAlgorithm.HS512)
-                .build();
     }
 
     //BearerTokenAuthenticationFilter → JwtAuthenticationProvider →
@@ -119,7 +111,7 @@ public class SecurityConfig {
         // By default, it looks for claims named "scope" or "scp" and treats them as space-separated lists of authorities.
         // change the prefix from "SCOPE_" to "ROLE_",
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
 

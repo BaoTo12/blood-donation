@@ -1,14 +1,17 @@
 package com.example.blood_donation.service;
 
 
+import com.example.blood_donation.dto.request.LogoutRequest;
 import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
 import com.example.blood_donation.dto.request.auth.IntrospectRequest;
 import com.example.blood_donation.dto.response.auth.AuthenticationResponse;
 import com.example.blood_donation.dto.response.auth.IntrospectResponse;
 import com.example.blood_donation.entity.Account;
+import com.example.blood_donation.entity.InvalidatedToken;
 import com.example.blood_donation.exception.AppException;
 import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.repository.AccountRepository;
+import com.example.blood_donation.repository.InValidatedTokenRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -29,6 +32,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -38,10 +42,11 @@ public class AuthenticationService {
 
     PasswordEncoder passwordEncoder;
     AccountRepository accountRepository;
+    InValidatedTokenRepository inValidatedTokenRepository;
     @NonFinal
     @Value("${jwt.signer-key}")
     // this field is still final but being treated as nonfinal --> RequiredArgsConstructor won't create constructor for this
-    protected String SIGNER_KEY ;
+    protected String SIGNER_KEY;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         Account user = accountRepository.findByEmail(request.getEmail()).orElseThrow(
@@ -62,14 +67,25 @@ public class AuthenticationService {
 
     public IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException {
         var token = request.getToken();
-
-        JWSVerifier verifier = new MACVerifier(SIGNER_KEY);
-        SignedJWT signedJWT = SignedJWT.parse(token);
-
-        Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-
-        boolean valid = signedJWT.verify(verifier) && expiryTime.after(new Date());
+        boolean valid = true;
+        try {
+            verifyToken(token);
+        } catch (AppException e){
+            valid = false;
+        }
         return IntrospectResponse.builder().valid(valid).build();
+    }
+
+
+
+    public void logout(LogoutRequest request) throws ParseException, JOSEException {
+        var signedToken = verifyToken(request.getToken());
+        String jit = signedToken.getJWTClaimsSet().getJWTID();
+        Date expiryTime = signedToken.getJWTClaimsSet().getExpirationTime();
+
+        InvalidatedToken inValidatedToken = new InvalidatedToken(jit, expiryTime);
+
+        inValidatedTokenRepository.save(inValidatedToken);
     }
 
     private String generateToken(Account account) {
@@ -82,6 +98,7 @@ public class AuthenticationService {
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
+                .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(account)) // -- > custom claim
                 .build();
 
@@ -101,12 +118,34 @@ public class AuthenticationService {
         }
     }
 
-    private String buildScope(Account account){
+    private SignedJWT verifyToken(String token) throws JOSEException, ParseException {
+        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        // check invalidatedToken
+        if (inValidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        var verified = signedJWT.verify(verifier);
+        if (!(verified && expiryTime.after(new Date()))){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+        return signedJWT;
+    }
+
+    private String buildScope(Account account) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if (!CollectionUtils.isEmpty(account.getRoles())){
+        if (!CollectionUtils.isEmpty(account.getRoles())) {
             account.getRoles().forEach(role -> {
-                System.err.println(role);
-                stringJoiner.add(role.getName());
+                stringJoiner.add("ROLE_" + role.getName());
+                if (!CollectionUtils.isEmpty(role.getPermissions())) {
+                    role.getPermissions().forEach(permission -> {
+                        stringJoiner.add(permission.getName());
+                    });
+                }
             });
         }
         return stringJoiner.toString();
