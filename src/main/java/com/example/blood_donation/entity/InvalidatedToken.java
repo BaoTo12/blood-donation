@@ -14,7 +14,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class InValidatedToken {
+public class InvalidatedToken {
 
     @Id
     private String id;
