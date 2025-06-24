@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,24 +30,24 @@ public class AccountController {
     }
 
     @PostMapping
-    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountCreationRequest request){
+    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountCreationRequest request) {
         var result = accountService.createAccount(request);
         return ApiResponse.<Long>builder().result(result).build();
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id){
+    public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id) {
         return ApiResponse.<AccountResponse>builder().result(accountService.getAccountById(id)).build();
     }
 
     @PatchMapping("/{id}")
-    public ApiResponse<String> updateAccount(@PathVariable Long id, @RequestBody AccountUpdateRequest request){
+    public ApiResponse<String> updateAccount(@PathVariable Long id, @RequestBody AccountUpdateRequest request) {
         accountService.updateAccount(request, id);
         return ApiResponse.<String>builder().result("Updated account successfully").build();
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteAccount(@PathVariable Long id){
+    public ApiResponse<String> deleteAccount(@PathVariable Long id) {
         accountService.deleteAccount(id);
         return ApiResponse.<String>builder().result("Delete account successfully").build();
     }
