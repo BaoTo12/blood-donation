@@ -2,6 +2,7 @@ package com.example.blood_donation.controller;
 
 
 import com.example.blood_donation.dto.request.LogoutRequest;
+import com.example.blood_donation.dto.request.RefreshRequest;
 import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
 import com.example.blood_donation.dto.request.auth.IntrospectRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
@@ -27,7 +28,7 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/token")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         var result = authenticationService.authenticate(request);
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(result)
@@ -41,11 +42,23 @@ public class AuthenticationController {
                 .result(authenticationService.introspect(request))
                 .build();
     }
+
     @PostMapping("/logout")
     ApiResponse<Void> logout(@RequestBody LogoutRequest request)
             throws ParseException, JOSEException {
         authenticationService.logout(request);
         return ApiResponse.<Void>builder()
                 .build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> authenticate(@RequestBody RefreshRequest request)
+            throws ParseException, JOSEException {
+        var result = authenticationService.refreshToken(request);
+
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
+
     }
 }

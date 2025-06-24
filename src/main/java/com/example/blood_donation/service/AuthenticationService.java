@@ -2,6 +2,7 @@ package com.example.blood_donation.service;
 
 
 import com.example.blood_donation.dto.request.LogoutRequest;
+import com.example.blood_donation.dto.request.RefreshRequest;
 import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
 import com.example.blood_donation.dto.request.auth.IntrospectRequest;
 import com.example.blood_donation.dto.response.auth.AuthenticationResponse;
@@ -76,7 +77,34 @@ public class AuthenticationService {
         return IntrospectResponse.builder().valid(valid).build();
     }
 
+    public AuthenticationResponse refreshToken(RefreshRequest request)
+            throws ParseException, JOSEException {
+        var signedJWT = verifyToken(request.getToken());
+        // check if user doesn't belong to our system --> throw error
+        var email = signedJWT.getJWTClaimsSet().getSubject();
 
+        var user = accountRepository.findByEmail(email).orElseThrow(
+                () -> new AppException(ErrorCode.UNAUTHENTICATED)
+        );
+        // if user exists then we invalidate that token
+        var jit = signedJWT.getJWTClaimsSet().getJWTID();
+        var expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+                .id(jit)
+                .expiryTime(expiryTime)
+                .build();
+
+        inValidatedTokenRepository.save(invalidatedToken);
+
+        // create new token
+        var token = generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(token)
+                .authenticated(true)
+                .build();
+    }
 
     public void logout(LogoutRequest request) throws ParseException, JOSEException {
         var signedToken = verifyToken(request.getToken());
