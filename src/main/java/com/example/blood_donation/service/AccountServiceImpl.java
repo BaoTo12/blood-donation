@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -71,6 +72,8 @@ public class AccountServiceImpl implements AccountService {
         if (!Objects.isNull(request.getPassword())){
             existingAccount.setPassword(passwordEncoder.encode(request.getPassword()));
         }
+        var roles = roleRepository.findAllById(request.getRoles());
+        existingAccount.setRoles(new HashSet<>(roles));
         accountRepository.save(existingAccount);
     }
 
