@@ -8,13 +8,13 @@ import com.example.blood_donation.exception.DuplicateResourceException;
 import com.example.blood_donation.exception.ResourceNotFoundException;
 import com.example.blood_donation.mapper.AppointmentMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,12 +23,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class AppointmentServiceImpl implements AppointmentService{
+@Transactional
+public class AppointmentServiceImpl implements AppointmentService {
 
     AppointmentRepository repo;
     AppointmentMapper mapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<AppointmentResponse> getAllAppointments() {
         return repo.findAll().stream()
                 .map(mapper::toResponse)
@@ -36,6 +38,7 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AppointmentResponse getAppointmentById(Long id) {
         Appointment appt = repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No appointment with id " + id));
@@ -43,7 +46,6 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    @Transactional
     public Long createAppointment(AppointmentCreationRequest req) {
         // pre-check duplicate
         if (repo.existsByBloodRequestIdAndAccountId(req.getRequestId(), req.getAccountId())) {
@@ -69,7 +71,6 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    @Transactional
     public void updateAppointmentStatus(Long id, AppointmentUpdateRequest req) {
         Appointment apt = repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No appointment with id " + id));
@@ -78,7 +79,6 @@ public class AppointmentServiceImpl implements AppointmentService{
     }
 
     @Override
-    @Transactional
     public void deleteAppointment(Long id) {
         if (!repo.existsById(id)) {
             throw new ResourceNotFoundException("No appointment with id " + id);
