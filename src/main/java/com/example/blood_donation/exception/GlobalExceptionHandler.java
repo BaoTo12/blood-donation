@@ -5,6 +5,8 @@ import com.example.blood_donation.dto.response.ErrorResponse;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +37,36 @@ public class GlobalExceptionHandler {
                         .code(errorCode.getCode())
                         .message(exception.getMessage())
                         .build());
+    }
+
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        String message = exception.getMessage();
+        String userMessage = getString(message);
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.builder()
+                        .code(ErrorCode.INVALID_DATA.getCode())
+                        .message(userMessage)
+                        .build());
+    }
+
+    private String getString(String message) {
+        String userMessage = "Invalid data provided";
+
+        // Check for duplicate entry error
+        if (message != null && message.contains("Duplicate entry")) {
+            // Extract the duplicate value and field name
+            if (message.contains("phone")) {
+                userMessage = "Phone number already exists";
+            } else if (message.contains("email")) {
+                userMessage = "Email address already exists";
+            } else {
+                userMessage = "This value already exists";
+            }
+        }
+        return userMessage;
     }
 
 //    @ExceptionHandler(value = AccessDeniedException.class)

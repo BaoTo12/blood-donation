@@ -14,7 +14,8 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, HttpStatus.FORBIDDEN),
     RESOURCED_NOT_FOUND(1009, HttpStatus.BAD_REQUEST),
     DUPLICATE_RESOURCE(1010, HttpStatus.BAD_REQUEST),
-    INVALID_TOKEN(1011, HttpStatus.BAD_REQUEST);
+    INVALID_TOKEN(1011, HttpStatus.BAD_REQUEST),
+    INVALID_DATA(1012, HttpStatus.BAD_REQUEST);
 
     private final int code;
     private final HttpStatusCode statusCode;
