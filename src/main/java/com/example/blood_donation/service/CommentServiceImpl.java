@@ -4,6 +4,8 @@ import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
 import com.example.blood_donation.dto.request.comment.CommentUpdateRequest;
 import com.example.blood_donation.dto.response.comment.CommentResponse;
 import com.example.blood_donation.entity.Comment;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;
 import lombok.AccessLevel;
@@ -41,6 +43,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Integer updateComment(Long id, CommentUpdateRequest request) {
+        commentRepository.findById(id).orElseThrow(() ->
+                new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find comment with Id: " + id));
         return commentRepository.updateComment(request.getContent(), id);
     }
 

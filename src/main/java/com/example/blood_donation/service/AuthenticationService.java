@@ -59,12 +59,12 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         Account user = accountRepository.findByEmail(request.getEmail()).orElseThrow(
-                () -> new AppException(ErrorCode.USER_EXISTED)
+                () -> new AppException(ErrorCode.EMAIL_INVALID, "Email is invalid")
         );
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if (!authenticated)
-            throw new AppException(ErrorCode.UNAUTHENTICATED);
+            throw new AppException(ErrorCode.INVALID_PASSWORD, "Password is invalid");
 
         String token = generateToken(user);
 
@@ -92,7 +92,7 @@ public class AuthenticationService {
         var email = signedJWT.getJWTClaimsSet().getSubject();
 
         var user = accountRepository.findByEmail(email).orElseThrow(
-                () -> new AppException(ErrorCode.UNAUTHENTICATED)
+                () -> new AppException(ErrorCode.EMAIL_INVALID, "Email is invalid")
         );
         // if user exists then we invalidate that token
         var jit = signedJWT.getJWTClaimsSet().getJWTID();
@@ -123,8 +123,8 @@ public class AuthenticationService {
             InvalidatedToken inValidatedToken = new InvalidatedToken(jit, expiryTime);
 
             inValidatedTokenRepository.save(inValidatedToken);
-        }catch (AppException e){
-            log.info("Token is already expired");
+        } catch (AppException e) {
+            throw new AppException(ErrorCode.INVALID_TOKEN, "Token is expired");
         }
     }
 
@@ -164,7 +164,7 @@ public class AuthenticationService {
 
         // check invalidatedToken
         if (inValidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())) {
-            throw new AppException(ErrorCode.UNAUTHENTICATED);
+            throw new AppException(ErrorCode.UNAUTHENTICATED, "Invalid token");
         }
 
         Date expiryTime = (isRefresh)
@@ -173,7 +173,7 @@ public class AuthenticationService {
 
         var verified = signedJWT.verify(verifier);
         if (!(verified && expiryTime.after(new Date()))) {
-            throw new AppException(ErrorCode.UNAUTHENTICATED);
+            throw new AppException(ErrorCode.UNAUTHENTICATED, "Invalid token");
         }
         return signedJWT;
     }

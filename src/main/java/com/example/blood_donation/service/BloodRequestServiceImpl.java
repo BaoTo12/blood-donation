@@ -43,7 +43,7 @@ public class BloodRequestServiceImpl implements BloodRequestService {
     @Override
     public void updateBloodRequest(Long id, BloodRequestUpdateRequest request) {
         BloodRequest bloodRequest = bloodRequestRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find Blood Request with Id: " + id));
         mapper.updateFromDto(request, bloodRequest);
         bloodRequestRepository.save(bloodRequest);
     }

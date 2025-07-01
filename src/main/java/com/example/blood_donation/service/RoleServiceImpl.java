@@ -2,6 +2,8 @@ package com.example.blood_donation.service;
 
 import com.example.blood_donation.dto.request.role.RoleRequest;
 import com.example.blood_donation.dto.response.role.RoleResponse;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.RoleMapper;
 import com.example.blood_donation.repository.PermissionRepository;
 import com.example.blood_donation.repository.RoleRepository;
@@ -26,6 +28,10 @@ public class RoleServiceImpl implements RoleService {
     RoleMapper roleMapper;
 
     public RoleResponse create(RoleRequest request) {
+        if (roleRepository.existsById(request.getName())) {
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE,
+                    "There is another Role with name: " + request.getName());
+        }
         var role = roleMapper.toRole(request);
         var permissions = permissionRepository.findAllByNameIn(request.getPermissions().stream().toList());
         role.setPermissions(new HashSet<>(permissions));

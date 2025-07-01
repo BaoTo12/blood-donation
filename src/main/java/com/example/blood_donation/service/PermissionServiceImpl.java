@@ -3,6 +3,8 @@ package com.example.blood_donation.service;
 import com.example.blood_donation.dto.request.permission.PermissionRequest;
 import com.example.blood_donation.dto.response.permission.PermissionResponse;
 import com.example.blood_donation.entity.Permission;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.PermissionMapper;
 import com.example.blood_donation.repository.PermissionRepository;
 import lombok.AccessLevel;
@@ -22,6 +24,10 @@ public class PermissionServiceImpl implements PermissionService {
     PermissionMapper permissionMapper;
 
     public PermissionResponse create(PermissionRequest request) {
+        if (permissionRepository.findById(request.getName()).isPresent()) {
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE,
+                    "There is another Permission with name: " + request.getName());
+        }
         Permission permission = permissionMapper.toPermission(request);
         permission = permissionRepository.save(permission);
         return permissionMapper.toPermissionResponse(permission);

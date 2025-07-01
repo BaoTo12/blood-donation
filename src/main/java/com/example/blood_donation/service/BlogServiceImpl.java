@@ -42,7 +42,7 @@ public class BlogServiceImpl implements BlogService {
     @Transactional(readOnly = true)
     public BlogResponse getBlogById(Long id) {
         Blog blog = blogRepository.findById(id).orElseThrow(() ->
-                new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find blog with Id: " + id));
         return mapper.toBlogResponse(blog);
     }
 
@@ -55,7 +55,7 @@ public class BlogServiceImpl implements BlogService {
     public void updateBlog(Long id, BlogUpdateRequest request) {
         Blog existingBlog = blogRepository.findById(id)
                 .orElseThrow(() ->
-                        new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                        new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find blog with Id: " + id));
         mapper.updateFromDto(request, existingBlog);
 
         blogRepository.save(existingBlog);

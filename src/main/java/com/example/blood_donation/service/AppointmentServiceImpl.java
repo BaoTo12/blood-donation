@@ -41,7 +41,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional(readOnly = true)
     public AppointmentResponse getAppointmentById(Long id) {
         Appointment appt = repo.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                        , "Cannot find appointment with Id: " + id));
         return mapper.toResponse(appt);
     }
 
@@ -49,12 +50,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Long createAppointment(AppointmentCreationRequest req) {
         // pre-check duplicate
         if (repo.existsByBloodRequestIdAndAccountId(req.getRequestId(), req.getAccountId())) {
-            throw new AppException(ErrorCode.DUPLICATE_RESOURCE);
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE, "There is appointment with Blood Request ID: " + req.getRequestId());
         }
-
         Appointment entity = mapper.toAppointment(req);
         try {
-            log.info("Create appointment");
             Appointment saved = repo.save(entity);
             return saved.getId();
         } catch (DataIntegrityViolationException dive) {
@@ -67,7 +66,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void updateAppointmentStatus(Long id, AppointmentUpdateRequest req) {
         Appointment apt = repo.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                        , "Cannot find appointment with Id: " + id));
         mapper.updateStatusFromDto(req, apt);
         repo.save(apt);
     }
@@ -75,7 +75,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteAppointment(Long id) {
         if (!repo.existsById(id)) {
-            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND);
+            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                    , "Cannot find appointment with Id: " + id);
         }
         repo.deleteById(id);
     }

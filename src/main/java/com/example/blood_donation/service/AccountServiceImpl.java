@@ -64,14 +64,14 @@ public class AccountServiceImpl implements AccountService {
     @PostAuthorize("returnObject.email == authentication.name")
     public AccountResponse getAccountById(Long id) {
         Account account = accountRepository.findById(id).orElseThrow(() ->
-                new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find account with Id: " + id));
         return mapper.toAccountResponse(account);
     }
 
     @Override
     public void updateAccount(AccountUpdateRequest request, Long id) {
         Account existingAccount = accountRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find account with Id: " + id));
         mapper.updateFromDto(request, existingAccount);
         if (!Objects.isNull(request.getPassword())) {
             existingAccount.setPassword(passwordEncoder.encode(request.getPassword()));

@@ -41,11 +41,10 @@ public class DonationServiceImpl implements DonationService {
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
         // Check if donation already exists for this appointment
-        Optional<Donation> existingDonation = donationRepository.findByAppointmentId(request.getAppointmentId());
-        if (existingDonation.isPresent()) {
-            throw new IllegalStateException("Donation record already exists for appointment id: " + request.getAppointmentId());
-        }
-
+        Donation existingDonation = donationRepository
+                .findByAppointmentId(request.getAppointmentId())
+                .orElseThrow(() -> new AppException(ErrorCode.DUPLICATE_RESOURCE
+                        , "There is donation with appointmentId: " + request.getAppointmentId()));
 
         Donation donation = mapper.toDonation(request);
         Donation savedDonation = donationRepository.save(donation);
@@ -72,7 +71,7 @@ public class DonationServiceImpl implements DonationService {
     @Transactional(readOnly = true)
     public DonationResponse getDonationById(Long id) {
         Donation donation = donationRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find donation with donationId: " + id));
         return mapper.toDonationResponse(donation);
     }
 
@@ -80,7 +79,7 @@ public class DonationServiceImpl implements DonationService {
     @Transactional(readOnly = true)
     public DonationResponse getDonationByAppointmentId(Long appointmentId) {
         Donation donation = donationRepository.findByAppointmentId(appointmentId)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find donation with appointmentId: " + appointmentId));
         return mapper.toDonationResponse(donation);
     }
 
@@ -113,20 +112,23 @@ public class DonationServiceImpl implements DonationService {
     @Override
     public void updateDonation(DonationUpdateRequest request, Long id) {
         Donation existingDonation = donationRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                        , "Cannot find donation with donationId: " + id));
 
         // Validate appointment if being updated
-        if (request.getAppointmentId() != null &&
-                !request.getAppointmentId().equals(existingDonation.getAppointment().getId())) {
+        if (request.getAppointmentId() != null) {
 
             Appointment appointment = appointmentRepository.findById(request.getAppointmentId())
-                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                            , "Cannot find appointment with Id: " + request.getAppointmentId()));
 
             // Check if another donation exists for this appointment
-            Optional<Donation> existingDonationForAppointment = donationRepository.findByAppointmentId(request.getAppointmentId());
-            if (existingDonationForAppointment.isPresent() &&
-                    !existingDonationForAppointment.get().getId().equals(id)) {
-                throw new IllegalStateException("Donation record already exists for appointment id: " + request.getAppointmentId());
+            Optional<Donation> existingDonationForAppointment = donationRepository
+                    .findByAppointmentId(appointment.getId());
+            if (existingDonationForAppointment.isPresent()) {
+                // TODO: temporary
+                throw new AppException(ErrorCode.DUPLICATE_RESOURCE,
+                        "There is another Donation with appointmentId: " + appointment.getId());
             }
         }
 
@@ -147,7 +149,7 @@ public class DonationServiceImpl implements DonationService {
     @Override
     public void deleteDonation(Long id) {
         if (!donationRepository.existsById(id)) {
-            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND);
+            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find donation with Id: " + id);
         }
         donationRepository.deleteById(id);
     }

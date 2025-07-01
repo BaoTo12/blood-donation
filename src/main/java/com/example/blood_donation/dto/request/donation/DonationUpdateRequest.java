@@ -5,12 +5,13 @@ import com.example.blood_donation.validation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DonationUpdateRequest {
-
+    @NotNull
     private Long appointmentId;
 
     @EnumValue(name = "donationType", enumClass = DonationType.class)
