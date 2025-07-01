@@ -6,9 +6,11 @@ import com.example.blood_donation.validation.EnumValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class AccountCreationRequest {
     @NotNull
     private String name;

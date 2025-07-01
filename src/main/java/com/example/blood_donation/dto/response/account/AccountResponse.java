@@ -1,6 +1,7 @@
 package com.example.blood_donation.dto.response.account;
 
 import com.example.blood_donation.entity.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Setter
 @Getter
+@Builder
 public class AccountResponse {
 
     private String email;
