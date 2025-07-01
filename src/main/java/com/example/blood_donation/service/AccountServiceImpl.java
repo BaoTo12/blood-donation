@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +39,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Long createAccount(AccountCreationRequest request) {
-        accountRepository.findByEmail(request.getEmail()).orElseThrow(() ->
-                new AppException(ErrorCode.DUPLICATE_RESOURCE));
+        Optional<Account> existingAccount = accountRepository.findByEmail(request.getEmail());
+        if (existingAccount.isPresent()) {
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE,
+                    "There is an account with given email: " + request.getEmail());
+        }
         Account account = mapper.toAccount(request);
         Role role = roleRepository.findByName(PreDefinedRole.MEMBER.name());
         account.getRoles().add(role);
