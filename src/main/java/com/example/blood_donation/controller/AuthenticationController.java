@@ -3,13 +3,16 @@ package com.example.blood_donation.controller;
 
 import com.example.blood_donation.dto.request.LogoutRequest;
 import com.example.blood_donation.dto.request.RefreshRequest;
+import com.example.blood_donation.dto.request.account.AccountCreationRequest;
 import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
 import com.example.blood_donation.dto.request.auth.IntrospectRequest;
 import com.example.blood_donation.dto.response.ApiResponse;
 import com.example.blood_donation.dto.response.auth.AuthenticationResponse;
 import com.example.blood_donation.dto.response.auth.IntrospectResponse;
+import com.example.blood_donation.service.AccountService;
 import com.example.blood_donation.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +29,7 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 public class AuthenticationController {
     AuthenticationService authenticationService;
+    AccountService accountService;
 
     @PostMapping("/token")
     ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
@@ -60,5 +64,10 @@ public class AuthenticationController {
                 .result(result)
                 .build();
 
+    }
+    @PostMapping("/register")
+    public ApiResponse<Long> register(@Valid @RequestBody AccountCreationRequest request) {
+        var result = accountService.createAccount(request);
+        return ApiResponse.<Long>builder().result(result).build();
     }
 }

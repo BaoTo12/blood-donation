@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,11 +28,6 @@ public class AccountController {
         return ApiResponse.<List<Account>>builder().result(accountService.getAllAccounts()).build();
     }
 
-    @PostMapping
-    public ApiResponse<Long> createAccount(@Valid @RequestBody AccountCreationRequest request) {
-        var result = accountService.createAccount(request);
-        return ApiResponse.<Long>builder().result(result).build();
-    }
 
     @GetMapping("/{id}")
     public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id) {
