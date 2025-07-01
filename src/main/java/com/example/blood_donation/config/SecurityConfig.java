@@ -55,7 +55,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        String[] baseEndpoints = {"/users", "/auth/token", "/auth/introspect", "/auth/logout"};
+        String[] baseEndpoints = {"/users", "/auth/token", "/auth/introspect", "/auth/logout", "/auth/refresh"};
 
         // Build versioned endpoints dynamically
         String[] publicEndpoints = java.util.Arrays.stream(baseEndpoints)
