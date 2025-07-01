@@ -4,8 +4,8 @@ import com.example.blood_donation.dto.request.appointment.AppointmentCreationReq
 import com.example.blood_donation.dto.request.appointment.AppointmentUpdateRequest;
 import com.example.blood_donation.dto.response.appointment.AppointmentResponse;
 import com.example.blood_donation.entity.Appointment;
-import com.example.blood_donation.exception.DuplicateResourceException;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.AppointmentMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
 import lombok.AccessLevel;
@@ -41,7 +41,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional(readOnly = true)
     public AppointmentResponse getAppointmentById(Long id) {
         Appointment appt = repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No appointment with id " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toResponse(appt);
     }
 
@@ -49,10 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Long createAppointment(AppointmentCreationRequest req) {
         // pre-check duplicate
         if (repo.existsByBloodRequestIdAndAccountId(req.getRequestId(), req.getAccountId())) {
-            throw new DuplicateResourceException(
-                    "Appointment already exists for request=" + req.getRequestId() +
-                            " and member=" + req.getAccountId()
-            );
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE);
         }
 
         Appointment entity = mapper.toAppointment(req);
@@ -63,17 +60,14 @@ public class AppointmentServiceImpl implements AppointmentService {
         } catch (DataIntegrityViolationException dive) {
             // unique constraint at DB level
             log.warn("Integrity error creating appointment: {}", dive.getMessage());
-            throw new DuplicateResourceException(
-                    "Cannot create duplicate appointment for request="
-                            + req.getRequestId() + " and member=" + req.getAccountId()
-            );
+            throw new AppException(ErrorCode.DUPLICATE_RESOURCE);
         }
     }
 
     @Override
     public void updateAppointmentStatus(Long id, AppointmentUpdateRequest req) {
         Appointment apt = repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No appointment with id " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         mapper.updateStatusFromDto(req, apt);
         repo.save(apt);
     }
@@ -81,7 +75,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteAppointment(Long id) {
         if (!repo.existsById(id)) {
-            throw new ResourceNotFoundException("No appointment with id " + id);
+            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND);
         }
         repo.deleteById(id);
     }

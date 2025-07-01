@@ -6,7 +6,6 @@ import com.example.blood_donation.dto.response.appointment.AppointmentResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.BloodRequest;
-import com.example.blood_donation.exception.ResourceNotFoundException;
 import com.example.blood_donation.repository.AccountRepository;
 import com.example.blood_donation.repository.BloodRequestRepository;
 import org.mapstruct.*;
@@ -31,10 +30,10 @@ public abstract class AppointmentMapper {
 
 
     // Map Appointment → AppointmentResponse DTO.
-    @Mapping(target = "id",            source = "id")
-    @Mapping(target = "account",       source = "account")
-    @Mapping(target = "bloodRequest",  source = "bloodRequest")
-    @Mapping(target = "status",        source = "status")
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "account", source = "account")
+    @Mapping(target = "bloodRequest", source = "bloodRequest")
+    @Mapping(target = "status", source = "status")
     public abstract AppointmentResponse toResponse(Appointment appointment);
 
 
