@@ -49,7 +49,7 @@ public class Account extends BaseEntity {
     @JoinTable(
             name = "account_role",
             joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns =  @JoinColumn(name = "role_id")
+            inverseJoinColumns =  @JoinColumn(name = "role_name")
     )
     private Set<Role> roles = new HashSet<>();
 
