@@ -32,8 +32,10 @@ public class ApplicationInit {
             if (accountRepository.findByEmail("admin@gmail.com").isEmpty()) {
                 Account account = new Account();
                 Set<Role> roles = new HashSet<>();
-                Role role = roleRepository.findByName(PreDefinedRole.ADMIN.name());
-                roles.add(role);
+                Role admin = roleRepository.findByName(PreDefinedRole.ADMIN.name());
+                Role staff = roleRepository.findByName(PreDefinedRole.STAFF.name());
+                roles.add(admin);
+                roles.add(staff);
                 account.setRoles(roles);
                 account.setPassword(passwordEncoder.encode("admin"));
                 account.setEmail("admin@gmail.com");
