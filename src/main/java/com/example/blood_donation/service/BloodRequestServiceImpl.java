@@ -4,19 +4,22 @@ import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationR
 import com.example.blood_donation.dto.request.BloodRequest.BloodRequestUpdateRequest;
 import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
 import com.example.blood_donation.entity.BloodRequest;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.BloodRequestMapper;
 import com.example.blood_donation.repository.BloodRequestRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Transactional
 public class BloodRequestServiceImpl implements BloodRequestService {
 
     BloodRequestRepository bloodRequestRepository;
@@ -31,6 +34,7 @@ public class BloodRequestServiceImpl implements BloodRequestService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BloodRequestResponse> getAllBloodRequests() {
         List<BloodRequest> bloodRequests = bloodRequestRepository.findAll();
         return bloodRequests.stream().map(mapper::toBloodRequestResponse).toList();
@@ -39,7 +43,7 @@ public class BloodRequestServiceImpl implements BloodRequestService {
     @Override
     public void updateBloodRequest(Long id, BloodRequestUpdateRequest request) {
         BloodRequest bloodRequest = bloodRequestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("There is no blood request with Id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         mapper.updateFromDto(request, bloodRequest);
         bloodRequestRepository.save(bloodRequest);
     }

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.base-path}/appointment")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole(STAFF)")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AppointmentController {
 
     AppointmentService appointmentService;
 
     @GetMapping
+    @PreAuthorize("hasRole(STAFF)")
     public ApiResponse<List<AppointmentResponse>> getAllAppointments() {
         List<AppointmentResponse> all = appointmentService.getAllAppointments();
         return ApiResponse.<List<AppointmentResponse>>builder()

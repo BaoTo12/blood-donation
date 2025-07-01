@@ -6,7 +6,8 @@ import com.example.blood_donation.dto.response.donation.DonationResponse;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.Donation;
 import com.example.blood_donation.enumType.DonationType;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.DonationMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
 import com.example.blood_donation.repository.DonationRepository;
@@ -37,8 +38,7 @@ public class DonationServiceImpl implements DonationService {
     public Long createDonation(DonationCreationRequest request) {
         // Validate appointment exists
         Appointment appointment = appointmentRepository.findById(request.getAppointmentId())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Appointment not found with id: " + request.getAppointmentId()));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
         // Check if donation already exists for this appointment
         Optional<Donation> existingDonation = donationRepository.findByAppointmentId(request.getAppointmentId());
@@ -72,7 +72,7 @@ public class DonationServiceImpl implements DonationService {
     @Transactional(readOnly = true)
     public DonationResponse getDonationById(Long id) {
         Donation donation = donationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Donation not found with id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toDonationResponse(donation);
     }
 
@@ -80,8 +80,7 @@ public class DonationServiceImpl implements DonationService {
     @Transactional(readOnly = true)
     public DonationResponse getDonationByAppointmentId(Long appointmentId) {
         Donation donation = donationRepository.findByAppointmentId(appointmentId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Donation not found for appointment id: " + appointmentId));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toDonationResponse(donation);
     }
 
@@ -114,15 +113,14 @@ public class DonationServiceImpl implements DonationService {
     @Override
     public void updateDonation(DonationUpdateRequest request, Long id) {
         Donation existingDonation = donationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Donation not found with id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
         // Validate appointment if being updated
         if (request.getAppointmentId() != null &&
                 !request.getAppointmentId().equals(existingDonation.getAppointment().getId())) {
 
             Appointment appointment = appointmentRepository.findById(request.getAppointmentId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Appointment not found with id: " + request.getAppointmentId()));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
             // Check if another donation exists for this appointment
             Optional<Donation> existingDonationForAppointment = donationRepository.findByAppointmentId(request.getAppointmentId());
@@ -149,7 +147,7 @@ public class DonationServiceImpl implements DonationService {
     @Override
     public void deleteDonation(Long id) {
         if (!donationRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Donation not found with id: " + id);
+            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND);
         }
         donationRepository.deleteById(id);
     }

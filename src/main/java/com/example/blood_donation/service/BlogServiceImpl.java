@@ -4,7 +4,8 @@ import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
 import com.example.blood_donation.dto.request.blog.BlogUpdateRequest;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.entity.Blog;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.BlogMapper;
 import com.example.blood_donation.repository.BlogRepository;
 import lombok.AccessLevel;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +41,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     @Transactional(readOnly = true)
     public BlogResponse getBlogById(Long id) {
-        Blog blog = blogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
+        Blog blog = blogRepository.findById(id).orElseThrow(() ->
+                new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toBlogResponse(blog);
     }
 
@@ -53,7 +54,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void updateBlog(Long id, BlogUpdateRequest request) {
         Blog existingBlog = blogRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found blog with Id: " + id));
+                .orElseThrow(() ->
+                        new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         mapper.updateFromDto(request, existingBlog);
 
         blogRepository.save(existingBlog);

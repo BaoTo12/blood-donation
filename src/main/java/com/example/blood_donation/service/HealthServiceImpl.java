@@ -5,7 +5,8 @@ import com.example.blood_donation.dto.request.health.HealthUpdateRequest;
 import com.example.blood_donation.dto.response.health.HealthResponse;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.Health;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.HealthMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
 import com.example.blood_donation.repository.HealthRepository;
@@ -33,8 +34,7 @@ public class HealthServiceImpl implements HealthService {
         // Validate appointment exists if provided
         if (request.getAppointmentId() != null) {
             Appointment appointment = appointmentRepository.findById(request.getAppointmentId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Appointment not found with id: " + request.getAppointmentId()));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
             // Check if health record already exists for this appointment
             Optional<Health> existingHealth = healthRepository.findByAppointmentId(request.getAppointmentId());
@@ -61,7 +61,7 @@ public class HealthServiceImpl implements HealthService {
     @Transactional(readOnly = true)
     public HealthResponse getHealthRecordById(Long id) {
         Health health = healthRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Health record not found with id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toHealthResponse(health);
     }
 
@@ -69,23 +69,21 @@ public class HealthServiceImpl implements HealthService {
     @Transactional(readOnly = true)
     public HealthResponse getHealthRecordByAppointmentId(Long appointmentId) {
         Health health = healthRepository.findByAppointmentId(appointmentId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Health record not found for appointment id: " + appointmentId));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         return mapper.toHealthResponse(health);
     }
 
     @Override
     public void updateHealthRecord(HealthUpdateRequest request, Long id) {
         Health existingHealth = healthRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Health record not found with id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
         // Validate appointment if being updated
         if (request.getAppointmentId() != null &&
                 !request.getAppointmentId().equals(existingHealth.getAppointment().getId())) {
 
             Appointment appointment = appointmentRepository.findById(request.getAppointmentId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Appointment not found with id: " + request.getAppointmentId()));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
 
             // Check if another health record exists for this appointment
             Optional<Health> existingHealthForAppointment = healthRepository.findByAppointmentId(request.getAppointmentId());
@@ -102,7 +100,7 @@ public class HealthServiceImpl implements HealthService {
     @Override
     public void deleteHealthRecord(Long id) {
         if (!healthRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Health record not found with id: " + id);
+            throw new AppException(ErrorCode.RESOURCED_NOT_FOUND);
         }
         healthRepository.deleteById(id);
     }

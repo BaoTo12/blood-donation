@@ -29,7 +29,6 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = mapper.toComment(request);
         Comment savedComment;
         savedComment = commentRepository.save(comment);
-        // this can throw SQLIntegrityConstraintViolationException
         return savedComment.getId();
     }
 

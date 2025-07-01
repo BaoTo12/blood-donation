@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,12 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Transactional
 public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
     PermissionRepository permissionRepository;
     RoleMapper roleMapper;
 
-    public RoleResponse create(RoleRequest request){
+    public RoleResponse create(RoleRequest request) {
         var role = roleMapper.toRole(request);
         var permissions = permissionRepository.findAllByNameIn(request.getPermissions().stream().toList());
         role.setPermissions(new HashSet<>(permissions));
@@ -32,14 +34,15 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.toRoleResponse(role);
     }
 
-    public List<RoleResponse> getAll(){
+    @Transactional(readOnly = true)
+    public List<RoleResponse> getAll() {
         return roleRepository.findAll()
                 .stream()
                 .map(roleMapper::toRoleResponse)
                 .toList();
     }
 
-    public void delete(String roleName){
+    public void delete(String roleName) {
         roleRepository.deleteById(roleName);
     }
 }

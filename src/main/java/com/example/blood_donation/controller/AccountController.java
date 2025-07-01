@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,23 +25,27 @@ public class AccountController {
     AccountService accountService;
 
     @GetMapping
+    @PreAuthorize("hasRole(ADMIN)")
     public ApiResponse<List<Account>> getAccounts() {
         return ApiResponse.<List<Account>>builder().result(accountService.getAllAccounts()).build();
     }
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole(STAFF)")
     public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id) {
         return ApiResponse.<AccountResponse>builder().result(accountService.getAccountById(id)).build();
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole(STAFF)")
     public ApiResponse<String> updateAccount(@PathVariable Long id, @RequestBody AccountUpdateRequest request) {
         accountService.updateAccount(request, id);
         return ApiResponse.<String>builder().result("Updated account successfully").build();
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole(STAFF)")
     public ApiResponse<String> deleteAccount(@PathVariable Long id) {
         accountService.deleteAccount(id);
         return ApiResponse.<String>builder().result("Delete account successfully").build();

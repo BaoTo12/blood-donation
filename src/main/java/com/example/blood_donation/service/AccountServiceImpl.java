@@ -7,7 +7,8 @@ import com.example.blood_donation.dto.response.account.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Role;
 import com.example.blood_donation.enumType.PreDefinedRole;
-import com.example.blood_donation.exception.ResourceNotFoundException;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.AccountMapper;
 import com.example.blood_donation.repository.AccountRepository;
 import com.example.blood_donation.repository.RoleRepository;
@@ -23,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +38,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Long createAccount(AccountCreationRequest request) {
+        accountRepository.findByEmail(request.getEmail()).orElseThrow(() ->
+                new AppException(ErrorCode.DUPLICATE_RESOURCE));
         Account account = mapper.toAccount(request);
         Role role = roleRepository.findByName(PreDefinedRole.MEMBER.name());
         account.getRoles().add(role);
@@ -57,19 +59,17 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(readOnly = true)
     @PostAuthorize("returnObject.email == authentication.name")
     public AccountResponse getAccountById(Long id) {
-        Optional<Account> account = accountRepository.findById(id);
-        if (account.isEmpty()){
-            throw  new ResourceNotFoundException("There is not account with id: " + id);
-        }
-        return mapper.toAccountResponse(account.get());
+        Account account = accountRepository.findById(id).orElseThrow(() ->
+                new AppException(ErrorCode.RESOURCED_NOT_FOUND));
+        return mapper.toAccountResponse(account);
     }
 
     @Override
     public void updateAccount(AccountUpdateRequest request, Long id) {
         Account existingAccount = accountRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("There is not account with id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
         mapper.updateFromDto(request, existingAccount);
-        if (!Objects.isNull(request.getPassword())){
+        if (!Objects.isNull(request.getPassword())) {
             existingAccount.setPassword(passwordEncoder.encode(request.getPassword()));
         }
         var roles = roleRepository.findAllById(request.getRoles());
