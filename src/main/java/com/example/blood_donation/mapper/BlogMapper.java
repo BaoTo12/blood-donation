@@ -5,6 +5,8 @@ import com.example.blood_donation.dto.request.blog.BlogUpdateRequest;
 import com.example.blood_donation.dto.response.blog.BlogResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.repository.AccountRepository;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public abstract class BlogMapper {
 
     protected Account fetchAccount(Long id) {
         return accountRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Account not found: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
     }
 
     public abstract BlogResponse toBlogResponse(Blog blog);

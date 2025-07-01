@@ -6,6 +6,8 @@ import com.example.blood_donation.dto.response.appointment.AppointmentResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.BloodRequest;
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.repository.AccountRepository;
 import com.example.blood_donation.repository.BloodRequestRepository;
 import org.mapstruct.*;
@@ -46,11 +48,11 @@ public abstract class AppointmentMapper {
     // helpers to fetch JPA references (will throw if not found)
     protected Account loadAccount(Long memberId) {
         return accountRepo.findById(memberId)
-                .orElseThrow(() -> new ResourceNotFoundException("No Account with id " + memberId));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
     }
 
     protected BloodRequest loadRequest(Long requestId) {
         return requestRepo.findById(requestId)
-                .orElseThrow(() -> new ResourceNotFoundException("No BloodRequest with id " + requestId));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND));
     }
 }
