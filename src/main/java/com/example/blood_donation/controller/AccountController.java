@@ -1,12 +1,10 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.account.AccountCreationRequest;
 import com.example.blood_donation.dto.request.account.AccountUpdateRequest;
-import com.example.blood_donation.dto.response.account.AccountResponse;
 import com.example.blood_donation.dto.response.ApiResponse;
+import com.example.blood_donation.dto.response.account.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.service.AccountService;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

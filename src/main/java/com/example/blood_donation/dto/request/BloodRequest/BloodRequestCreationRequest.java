@@ -1,6 +1,5 @@
 package com.example.blood_donation.dto.request.BloodRequest;
 
-import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.RequestPriority;
 import com.example.blood_donation.validation.EnumValue;

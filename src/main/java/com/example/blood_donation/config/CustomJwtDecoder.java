@@ -1,8 +1,6 @@
 package com.example.blood_donation.config;
 
-import com.example.blood_donation.dto.request.auth.IntrospectRequest;
 import com.example.blood_donation.repository.InValidatedTokenRepository;
-import com.example.blood_donation.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -10,9 +8,7 @@ import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -56,6 +52,7 @@ public class CustomJwtDecoder implements JwtDecoder {
 
         return nimbusJwtDecoder.decode(token);
     }
+
     private void validateTokenDirectly(String token) throws JOSEException, ParseException {
         // Create a verifier using our signing key
         JWSVerifier verifier = new MACVerifier(signerKey.getBytes());

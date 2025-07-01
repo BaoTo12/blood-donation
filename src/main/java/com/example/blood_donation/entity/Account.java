@@ -1,18 +1,13 @@
 package com.example.blood_donation.entity;
 
 
-import com.example.blood_donation.enumType.BloodGroup;
-import com.example.blood_donation.enumType.Gender;
-import com.example.blood_donation.validation.EnumValue;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +44,7 @@ public class Account extends BaseEntity {
     @JoinTable(
             name = "account_role",
             joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns =  @JoinColumn(name = "role_name")
+            inverseJoinColumns = @JoinColumn(name = "role_name")
     )
     private Set<Role> roles = new HashSet<>();
 

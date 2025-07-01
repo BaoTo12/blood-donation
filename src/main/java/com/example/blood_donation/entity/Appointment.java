@@ -1,6 +1,5 @@
 package com.example.blood_donation.entity;
 
-import com.example.blood_donation.enumType.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
