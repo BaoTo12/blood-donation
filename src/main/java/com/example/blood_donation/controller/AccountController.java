@@ -36,7 +36,7 @@ public class AccountController {
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasRole(STAFF)")
+    @PreAuthorize("hasRole('STAFF')")
     public ApiResponse<String> updateAccount(@PathVariable Long id, @RequestBody AccountUpdateRequest request) {
         accountService.updateAccount(request, id);
         return ApiResponse.<String>builder().result("Updated account successfully").build();

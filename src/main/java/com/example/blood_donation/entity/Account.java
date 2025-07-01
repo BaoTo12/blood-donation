@@ -17,8 +17,6 @@ import java.util.Set;
 @ToString
 @DynamicUpdate
 public class Account extends BaseEntity {
-
-
     private String email;
 
     private String password;
