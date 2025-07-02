@@ -37,6 +37,7 @@ public class AccountServiceImpl implements AccountService {
     AccountMapper mapper;
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
+    EmailService emailService;
 
     @Override
     public Long createAccount(AccountCreationRequest request) {
@@ -50,6 +51,17 @@ public class AccountServiceImpl implements AccountService {
         account.getRoles().add(role);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         Account savedAccount = accountRepository.save(account);
+
+        // Send Welcome Email
+        String welcomeMessage = String.format(
+                "Welcome to our platform, %s! Your account has been created successfully.",
+                savedAccount.getName()
+        );
+        emailService.sendSimpleEmail(
+                savedAccount.getEmail(),
+                "Welcome to Our Platform!",
+                welcomeMessage
+        );
         return savedAccount.getId();
     }
 
