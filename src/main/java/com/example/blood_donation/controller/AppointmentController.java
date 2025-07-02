@@ -17,14 +17,13 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.base-path}/appointment")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole(STAFF)")
+@PreAuthorize("hasRole('STAFF')")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AppointmentController {
 
     AppointmentService appointmentService;
 
     @GetMapping
-    @PreAuthorize("hasRole(STAFF)")
     public ApiResponse<List<AppointmentResponse>> getAllAppointments() {
         List<AppointmentResponse> all = appointmentService.getAllAppointments();
         return ApiResponse.<List<AppointmentResponse>>builder()

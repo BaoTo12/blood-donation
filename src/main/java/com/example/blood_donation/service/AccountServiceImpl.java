@@ -20,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,14 +71,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateAccount(AccountUpdateRequest request, Long id) {
+
         Account existingAccount = accountRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND, "Cannot find account with Id: " + id));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCED_NOT_FOUND
+                        , "Cannot find account with Id: " + id));
         mapper.updateFromDto(request, existingAccount);
         if (!Objects.isNull(request.getPassword())) {
             existingAccount.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-        var roles = roleRepository.findAllById(request.getRoles());
-        existingAccount.setRoles(new HashSet<>(roles));
+        if (!CollectionUtils.isEmpty(request.getRoles())) {
+            var roles = roleRepository.findAllById(request.getRoles());
+            existingAccount.setRoles(new HashSet<>(roles));
+        }
         accountRepository.save(existingAccount);
     }
 

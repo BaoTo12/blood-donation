@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -15,7 +14,6 @@ import java.util.Set;
 public class AccountUpdateRequest {
 
     private String name;
-    private String email;
 
     @Min(8)
     private String password;
