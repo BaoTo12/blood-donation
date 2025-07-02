@@ -17,7 +17,7 @@ public class Appointment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(
-            name = "account_id",
+            name = "member_id",
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_appointment_member")
     )
