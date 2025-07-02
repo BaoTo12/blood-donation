@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-@PreAuthorize("hasRole(ADMIN)")
+@PreAuthorize("hasRole('ADMIN')")
 public class RoleController {
     RoleService roleService;
 

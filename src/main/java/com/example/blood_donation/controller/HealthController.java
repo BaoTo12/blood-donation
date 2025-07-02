@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("${api.base-path}/health")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@PreAuthorize("hasRole(MEMBER)")
+@PreAuthorize("hasRole('MEMBER')")
 public class HealthController {
 
     HealthService healthService;

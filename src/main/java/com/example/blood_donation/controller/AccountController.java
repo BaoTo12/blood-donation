@@ -23,14 +23,14 @@ public class AccountController {
     AccountService accountService;
 
     @GetMapping
-    @PreAuthorize("hasRole(ADMIN)")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<List<Account>> getAccounts() {
         return ApiResponse.<List<Account>>builder().result(accountService.getAllAccounts()).build();
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole(STAFF)")
+    @PreAuthorize("hasRole('STAFF')")
     public ApiResponse<AccountResponse> getAccountById(@PathVariable Long id) {
         return ApiResponse.<AccountResponse>builder().result(accountService.getAccountById(id)).build();
     }
@@ -43,7 +43,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole(STAFF)")
+    @PreAuthorize("hasRole('STAFF')")
     public ApiResponse<String> deleteAccount(@PathVariable Long id) {
         accountService.deleteAccount(id);
         return ApiResponse.<String>builder().result("Delete account successfully").build();

@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("${api.base-path}/donation")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@PreAuthorize("hasRole(MEMBER)")
+@PreAuthorize("hasRole('STAFF')")
 public class DonationController {
 
     DonationService donationService;

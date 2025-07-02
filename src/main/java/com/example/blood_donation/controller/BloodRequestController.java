@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("${api.base-path}/bloodRequest")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@PreAuthorize("hasRole(STAFF)")
+@PreAuthorize("hasRole('STAFF')")
 public class BloodRequestController {
 
     BloodRequestService bloodRequestService;

@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("${api.base-path}/permission")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-@PreAuthorize("hasRole(ADMIN)")
+@PreAuthorize("hasRole('ADMIN')")
 public class PermissionController {
     PermissionService permissionService;
 
