@@ -1,5 +1,7 @@
 package com.example.blood_donation.service;
 
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -57,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
 
         } catch (IOException ex) {
             // Handle the exception appropriately for your application
-            throw new RuntimeException("Failed to send email", ex);
+            throw new AppException(ErrorCode.FAILED_TO_SEND_EMAIL, "Failed to send email: " + ex.getMessage());
         }
     }
 
@@ -85,7 +87,7 @@ public class EmailServiceImpl implements EmailService {
             System.out.println("HTML email sent. Status: " + response.getStatusCode());
 
         } catch (IOException ex) {
-            throw new RuntimeException("Failed to send HTML email", ex);
+            throw new AppException(ErrorCode.FAILED_TO_SEND_EMAIL, "Failed to send email: " + ex.getMessage());
         }
     }
 
@@ -119,7 +121,7 @@ public class EmailServiceImpl implements EmailService {
             System.out.println("Templated email sent. Status: " + response.getStatusCode());
 
         } catch (IOException ex) {
-            throw new RuntimeException("Failed to send templated email", ex);
+            throw new AppException(ErrorCode.FAILED_TO_SEND_EMAIL, "Failed to send email: " + ex.getMessage());
         }
     }
 }

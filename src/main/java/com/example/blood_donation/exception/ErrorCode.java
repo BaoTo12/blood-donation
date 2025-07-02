@@ -16,7 +16,8 @@ public enum ErrorCode {
     DUPLICATE_RESOURCE(1010, HttpStatus.BAD_REQUEST),
     INVALID_TOKEN(1011, HttpStatus.BAD_REQUEST),
     INVALID_DATA(1012, HttpStatus.BAD_REQUEST),
-    FIELD_NOT_EXIST(1013, HttpStatus.BAD_REQUEST);
+    FIELD_NOT_EXIST(1013, HttpStatus.BAD_REQUEST),
+    FAILED_TO_SEND_EMAIL(1014, HttpStatus.SERVICE_UNAVAILABLE);
 
     private final int code;
     private final HttpStatusCode statusCode;
