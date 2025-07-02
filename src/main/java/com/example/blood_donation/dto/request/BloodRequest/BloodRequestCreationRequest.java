@@ -2,6 +2,7 @@ package com.example.blood_donation.dto.request.BloodRequest;
 
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.RequestPriority;
+import com.example.blood_donation.validation.DataValidRange;
 import com.example.blood_donation.validation.EnumValue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -13,6 +14,11 @@ import java.time.LocalDate;
 
 @Setter
 @Getter
+@DataValidRange(
+        startFieldName = "startTime",
+        endFieldName = "endTime",
+        message = "Blood request start time must be before or equal to end time"
+)
 public class BloodRequestCreationRequest {
     @NotNull
     private Long account_id;

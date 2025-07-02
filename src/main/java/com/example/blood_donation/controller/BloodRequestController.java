@@ -36,7 +36,7 @@ public class BloodRequestController {
     }
 
     @PatchMapping("/{id}")
-    public ApiResponse<String> updateBloodRequest(@PathVariable Long id, @RequestBody BloodRequestUpdateRequest request) {
+    public ApiResponse<String> updateBloodRequest(@PathVariable Long id, @RequestBody @Valid BloodRequestUpdateRequest request) {
         bloodRequestService.updateBloodRequest(id, request);
         return ApiResponse.<String>builder().result("Update Blood Request Successfully").build();
     }

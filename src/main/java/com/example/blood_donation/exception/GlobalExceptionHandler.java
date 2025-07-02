@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,7 +31,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ErrorResponse> handlingAppException(AppException exception) {
         ErrorCode errorCode = exception.getErrorCode();
-        System.err.println("HANDLE APP EXCEPTION: " + exception.getMessage());
         return ResponseEntity
                 .status(errorCode.getStatusCode())
                 .body(ErrorResponse.builder()
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
         return userMessage;
     }
 
-//    @ExceptionHandler(value = AccessDeniedException.class)
+    //    @ExceptionHandler(value = AccessDeniedException.class)
 //    ResponseEntity<ApiResponse<?>> handlingAccessDeniedException(AccessDeniedException exception){
 //        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 //
@@ -80,24 +80,20 @@ public class GlobalExceptionHandler {
 //        );
 //    }
 //
-//    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-//    ResponseEntity<ApiResponse<?>> handlingValidation(MethodArgumentNotValidException exception){
-//        String enumKey = Objects.requireNonNull(exception.getFieldError()).getDefaultMessage();
-//
-//        ErrorCode errorCode = ErrorCode.INVALID_KEY;
-//
-//        try {
-//            errorCode = ErrorCode.valueOf(enumKey);
-//        } catch (IllegalArgumentException e){
-//            System.err.println(e.getMessage());
-//        }
-//
-//        ApiResponse<?> apiResponse = new ApiResponse<>();
-//
-//        apiResponse.setCode(errorCode.getCode());
-//        apiResponse.setMessage(errorCode.getMessage());
-//
-//        return ResponseEntity.badRequest().body(apiResponse);
-//    }
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    ResponseEntity<ErrorResponse> handlingValidation(MethodArgumentNotValidException exception) {
+        Object[] arrayMsgErrors = exception.getDetailMessageArguments();
+        String msg = "";
+        if (arrayMsgErrors.length > 0) {
+            msg = arrayMsgErrors[0].toString();
+            System.err.println("INSIDE GLOBAL EXCEPTION HANDLER");
+        }
+        return ResponseEntity.badRequest().body(
+                ErrorResponse.builder()
+                        .code(exception.getStatusCode().value())
+                        .message(msg)
+                        .build()
+        );
+    }
 }
 
