@@ -1,5 +1,7 @@
 package com.example.blood_donation.service;
 
+import com.example.blood_donation.exception.AppException;
+import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.service.report.ExcelPoiService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -59,8 +61,7 @@ public class ReportServiceImpl implements ReportService {
                 }
 
             } catch (IOException e) {
-                // TODO: TEMP
-                throw new RuntimeException(e);
+                throw new AppException(ErrorCode.FILE_ERROR, "Error relates to File Operations: " + e.getMessage());
             }
         }
         // This removes reports older than 30 days
@@ -97,7 +98,7 @@ public class ReportServiceImpl implements ReportService {
                         });
             }
         } catch (IOException e) {
-            log.warn("Error during old report cleanup", e);
+            throw new AppException(ErrorCode.FILE_ERROR, "Error relates to File Operations: " + e.getMessage());
         }
     }
 
@@ -125,6 +126,8 @@ public class ReportServiceImpl implements ReportService {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filePath.toFile())) {
             excelData.writeTo(fileOutputStream);
             log.info("Weekly donation report saved successfully: {}", filePath);
+        } catch (IOException e) {
+            throw new AppException(ErrorCode.FILE_ERROR, "Error relates to File Operations: " + e.getMessage());
         }
 
         return filePath;
