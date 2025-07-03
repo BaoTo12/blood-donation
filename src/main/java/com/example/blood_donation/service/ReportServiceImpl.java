@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -33,7 +36,69 @@ public class ReportServiceImpl implements ReportService {
 
     @Scheduled(cron = "0 0 2 * * 1")
     public void generateWeeklyDonationReport() {
+        // Get data
+        ByteArrayOutputStream excelData = excelPoiService.generateDonationExcelReport();
 
+        // create fileName with time
+        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
+        String filename = String.format("weekly_donation_report_%s.xlsx", timeStamp);
+
+        // Creates a Path object pointing to the directory where reports will be stored
+        // this just gives location
+        Path reportDirectory = Paths.get(reportStoragePath);
+        if (!Files.exists(reportDirectory)) {
+            try {
+                Files.createDirectories(reportDirectory);
+                // properly joins paths using the correct separator for my OS
+                // this means we the reportDirectory is "/home/app/reports"
+                // and my file name is "weekly_donation_report_2024_12_15.xlsx"
+                // then the filePath become "/home/app/reports/weekly_donation_report_2024_12_15.xlsx"
+                Path filePath = reportDirectory.resolve(filename);
+                try (FileOutputStream outputStream = new FileOutputStream(filePath.toFile())) {
+                    excelData.writeTo(outputStream);
+                }
+
+            } catch (IOException e) {
+                // TODO: TEMP
+                throw new RuntimeException(e);
+            }
+        }
+        // This removes reports older than 30 days
+        cleanupOldReports(reportDirectory);
+    }
+
+    private void cleanupOldReports(Path reportDirectory) {
+        try {
+            LocalDateTime cutoffDate = LocalDateTime.now().minusDays(30);
+
+            // Gets all files and subdirectories as a stream
+            try (Stream<Path> paths = Files.walk(reportDirectory)) {
+                // Excludes directories, only keeps actual files.
+                paths.filter(Files::isRegularFile)
+                        // Keep only Excel files
+                        .filter(path -> path.getFileName().toString().endsWith(".xlsx"))
+                        .filter(path -> {
+                            try {
+                                // Gets when the file was last changed
+                                FileTime lastModified = Files.getLastModifiedTime(path);
+                                return lastModified.toInstant().isBefore(cutoffDate.atZone(ZoneId.systemDefault()).toInstant());
+                            } catch (IOException e) {
+                                log.warn("Could not check modification time for file: {}", path, e);
+                                return false;
+                            }
+                        })
+                        .forEach(path -> {
+                            try {
+                                Files.delete(path);
+                                log.info("Deleted old report file: {}", path);
+                            } catch (IOException e) {
+                                log.warn("Could not delete old report file: {}", path, e);
+                            }
+                        });
+            }
+        } catch (IOException e) {
+            log.warn("Error during old report cleanup", e);
+        }
     }
 
     public Path generateDonationReportToFile() throws IOException {
