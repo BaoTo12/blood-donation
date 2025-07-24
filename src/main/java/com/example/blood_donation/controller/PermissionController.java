@@ -1,8 +1,8 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.permission.PermissionRequest;
-import com.example.blood_donation.dto.response.ApiResponse;
-import com.example.blood_donation.dto.response.permission.PermissionResponse;
+import com.example.blood_donation.dto.requests.permission.PermissionRequest;
+import com.example.blood_donation.dto.responses.ApiResponse;
+import com.example.blood_donation.dto.responses.permission.PermissionResponse;
 import com.example.blood_donation.service.PermissionService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.example.blood_donation.mapper;
 
-import com.example.blood_donation.dto.request.donation.DonationCreationRequest;
-import com.example.blood_donation.dto.request.donation.DonationUpdateRequest;
-import com.example.blood_donation.dto.response.donation.DonationResponse;
+import com.example.blood_donation.dto.requests.donation.DonationCreationRequest;
+import com.example.blood_donation.dto.requests.donation.DonationUpdateRequest;
+import com.example.blood_donation.dto.responses.donation.DonationResponse;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.Donation;
 import com.example.blood_donation.repository.AppointmentRepository;
@@ -16,7 +16,7 @@ public abstract class DonationMapper {
     @Autowired
     private AppointmentRepository appointmentRepository;
     @Autowired
-    private EntityManager  entityManager;
+    private EntityManager entityManager;
 
     @Mapping(target = "appointment", source = "appointmentId", qualifiedByName = "mapAppointment")
     public abstract Donation toDonation(DonationCreationRequest request);

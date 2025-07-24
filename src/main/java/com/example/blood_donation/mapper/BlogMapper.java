@@ -1,8 +1,8 @@
 package com.example.blood_donation.mapper;
 
-import com.example.blood_donation.dto.request.blog.BlogCreationRequest;
-import com.example.blood_donation.dto.request.blog.BlogUpdateRequest;
-import com.example.blood_donation.dto.response.blog.BlogResponse;
+import com.example.blood_donation.dto.requests.blog.BlogCreationRequest;
+import com.example.blood_donation.dto.requests.blog.BlogUpdateRequest;
+import com.example.blood_donation.dto.responses.blog.BlogResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Blog;
 import com.example.blood_donation.exception.AppException;

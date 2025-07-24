@@ -1,14 +1,14 @@
 package com.example.blood_donation.controller;
 
 
-import com.example.blood_donation.dto.request.LogoutRequest;
-import com.example.blood_donation.dto.request.RefreshRequest;
-import com.example.blood_donation.dto.request.account.AccountCreationRequest;
-import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
-import com.example.blood_donation.dto.request.auth.IntrospectRequest;
-import com.example.blood_donation.dto.response.ApiResponse;
-import com.example.blood_donation.dto.response.auth.AuthenticationResponse;
-import com.example.blood_donation.dto.response.auth.IntrospectResponse;
+import com.example.blood_donation.dto.requests.LogoutRequest;
+import com.example.blood_donation.dto.requests.RefreshRequest;
+import com.example.blood_donation.dto.requests.account.AccountCreationRequest;
+import com.example.blood_donation.dto.requests.auth.AuthenticationRequest;
+import com.example.blood_donation.dto.requests.auth.IntrospectRequest;
+import com.example.blood_donation.dto.responses.ApiResponse;
+import com.example.blood_donation.dto.responses.auth.AuthenticationResponse;
+import com.example.blood_donation.dto.responses.auth.IntrospectResponse;
 import com.example.blood_donation.service.AccountService;
 import com.example.blood_donation.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
@@ -65,6 +65,7 @@ public class AuthenticationController {
                 .build();
 
     }
+
     @PostMapping("/register")
     public ApiResponse<Long> register(@Valid @RequestBody AccountCreationRequest request) {
         var result = accountService.createAccount(request);

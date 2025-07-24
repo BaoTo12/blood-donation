@@ -1,9 +1,9 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.BloodRequest.BloodRequestCreationRequest;
-import com.example.blood_donation.dto.request.BloodRequest.BloodRequestUpdateRequest;
-import com.example.blood_donation.dto.response.ApiResponse;
-import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
+import com.example.blood_donation.dto.requests.BloodRequest.BloodRequestCreationRequest;
+import com.example.blood_donation.dto.requests.BloodRequest.BloodRequestUpdateRequest;
+import com.example.blood_donation.dto.responses.ApiResponse;
+import com.example.blood_donation.dto.responses.BloodRequest.BloodRequestResponse;
 import com.example.blood_donation.service.BloodRequestService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
