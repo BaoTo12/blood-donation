@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.comment;
+package com.example.blood_donation.dto.requests.comment;
 
 import lombok.Getter;
 import lombok.Setter;

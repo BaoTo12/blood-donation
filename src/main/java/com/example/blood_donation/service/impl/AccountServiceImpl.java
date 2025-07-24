@@ -1,9 +1,9 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
 
-import com.example.blood_donation.dto.request.account.AccountCreationRequest;
-import com.example.blood_donation.dto.request.account.AccountUpdateRequest;
-import com.example.blood_donation.dto.response.account.AccountResponse;
+import com.example.blood_donation.dto.requests.account.AccountCreationRequest;
+import com.example.blood_donation.dto.requests.account.AccountUpdateRequest;
+import com.example.blood_donation.dto.responses.account.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Role;
 import com.example.blood_donation.enumType.PreDefinedRole;
@@ -12,6 +12,8 @@ import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.AccountMapper;
 import com.example.blood_donation.repository.AccountRepository;
 import com.example.blood_donation.repository.RoleRepository;
+import com.example.blood_donation.service.AccountService;
+import com.example.blood_donation.service.EmailService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.health;
+package com.example.blood_donation.dto.requests.health;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

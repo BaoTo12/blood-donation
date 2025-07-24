@@ -1,8 +1,8 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.account.AccountUpdateRequest;
-import com.example.blood_donation.dto.response.ApiResponse;
-import com.example.blood_donation.dto.response.account.AccountResponse;
+import com.example.blood_donation.dto.requests.account.AccountUpdateRequest;
+import com.example.blood_donation.dto.responses.ApiResponse;
+import com.example.blood_donation.dto.responses.account.AccountResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.service.AccountService;
 import lombok.AccessLevel;

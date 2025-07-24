@@ -1,7 +1,7 @@
-package com.example.blood_donation.dto.response.appointment;
+package com.example.blood_donation.dto.responses.appointment;
 
-import com.example.blood_donation.dto.response.BloodRequest.BloodRequestResponse;
-import com.example.blood_donation.dto.response.account.AccountResponse;
+import com.example.blood_donation.dto.responses.BloodRequest.BloodRequestResponse;
+import com.example.blood_donation.dto.responses.account.AccountResponse;
 import com.example.blood_donation.enumType.AppointmentStatus;
 import com.example.blood_donation.validation.EnumValue;
 import lombok.Data;

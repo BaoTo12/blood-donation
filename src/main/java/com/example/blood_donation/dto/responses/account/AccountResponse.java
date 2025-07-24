@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response.account;
+package com.example.blood_donation.dto.responses.account;
 
 import com.example.blood_donation.entity.Role;
 import lombok.Builder;

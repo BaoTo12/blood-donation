@@ -1,9 +1,7 @@
-package com.example.blood_donation.dto.response.comment;
+package com.example.blood_donation.dto.responses.comment;
 
-import com.example.blood_donation.dto.response.account.AccountResponse;
-import com.example.blood_donation.dto.response.blog.BlogResponse;
-import com.example.blood_donation.entity.Account;
-import com.example.blood_donation.entity.Blog;
+import com.example.blood_donation.dto.responses.account.AccountResponse;
+import com.example.blood_donation.dto.responses.blog.BlogResponse;
 import lombok.Getter;
 import lombok.Setter;
 

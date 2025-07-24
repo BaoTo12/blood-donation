@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.account;
+package com.example.blood_donation.dto.requests.account;
 
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.Gender;

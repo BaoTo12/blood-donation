@@ -1,13 +1,14 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
-import com.example.blood_donation.dto.request.comment.CommentCreationRequest;
-import com.example.blood_donation.dto.request.comment.CommentUpdateRequest;
-import com.example.blood_donation.dto.response.comment.CommentResponse;
+import com.example.blood_donation.dto.requests.comment.CommentCreationRequest;
+import com.example.blood_donation.dto.requests.comment.CommentUpdateRequest;
+import com.example.blood_donation.dto.responses.comment.CommentResponse;
 import com.example.blood_donation.entity.Comment;
 import com.example.blood_donation.exception.AppException;
 import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.CommentMapper;
 import com.example.blood_donation.repository.CommentRepository;
+import com.example.blood_donation.service.CommentService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

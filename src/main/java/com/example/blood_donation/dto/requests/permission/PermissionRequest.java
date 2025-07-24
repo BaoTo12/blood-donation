@@ -1,6 +1,8 @@
-package com.example.blood_donation.dto.request.permission;
+package com.example.blood_donation.dto.requests.permission;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data

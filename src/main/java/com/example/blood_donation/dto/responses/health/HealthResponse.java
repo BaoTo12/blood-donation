@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response.health;
+package com.example.blood_donation.dto.responses.health;
 
 import lombok.Getter;
 import lombok.Setter;

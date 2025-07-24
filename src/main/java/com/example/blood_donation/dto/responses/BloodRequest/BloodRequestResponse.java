@@ -1,6 +1,6 @@
-package com.example.blood_donation.dto.response.BloodRequest;
+package com.example.blood_donation.dto.responses.BloodRequest;
 
-import com.example.blood_donation.dto.response.account.AccountResponse;
+import com.example.blood_donation.dto.responses.account.AccountResponse;
 import lombok.Getter;
 import lombok.Setter;
 

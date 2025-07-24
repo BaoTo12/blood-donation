@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.BloodRequest;
+package com.example.blood_donation.dto.requests.BloodRequest;
 
 import com.example.blood_donation.enumType.BloodGroup;
 import com.example.blood_donation.enumType.RequestPriority;

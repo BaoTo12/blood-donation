@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response.auth;
+package com.example.blood_donation.dto.responses.auth;
 
 import lombok.AccessLevel;
 import lombok.Builder;

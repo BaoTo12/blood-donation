@@ -1,12 +1,13 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
-import com.example.blood_donation.dto.request.role.RoleRequest;
-import com.example.blood_donation.dto.response.role.RoleResponse;
+import com.example.blood_donation.dto.requests.role.RoleRequest;
+import com.example.blood_donation.dto.responses.role.RoleResponse;
 import com.example.blood_donation.exception.AppException;
 import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.RoleMapper;
 import com.example.blood_donation.repository.PermissionRepository;
 import com.example.blood_donation.repository.RoleRepository;
+import com.example.blood_donation.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.donation;
+package com.example.blood_donation.dto.requests.donation;
 
 import com.example.blood_donation.enumType.DonationType;
 import com.example.blood_donation.validation.EnumValue;

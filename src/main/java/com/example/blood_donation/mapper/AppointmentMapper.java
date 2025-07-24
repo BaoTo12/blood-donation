@@ -1,8 +1,8 @@
 package com.example.blood_donation.mapper;
 
-import com.example.blood_donation.dto.request.appointment.AppointmentCreationRequest;
-import com.example.blood_donation.dto.request.appointment.AppointmentUpdateRequest;
-import com.example.blood_donation.dto.response.appointment.AppointmentResponse;
+import com.example.blood_donation.dto.requests.appointment.AppointmentCreationRequest;
+import com.example.blood_donation.dto.requests.appointment.AppointmentUpdateRequest;
+import com.example.blood_donation.dto.responses.appointment.AppointmentResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.BloodRequest;

@@ -1,7 +1,8 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
 import com.example.blood_donation.exception.AppException;
 import com.example.blood_donation.exception.ErrorCode;
+import com.example.blood_donation.service.EmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;

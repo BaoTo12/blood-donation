@@ -1,13 +1,14 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
-import com.example.blood_donation.dto.request.appointment.AppointmentCreationRequest;
-import com.example.blood_donation.dto.request.appointment.AppointmentUpdateRequest;
-import com.example.blood_donation.dto.response.appointment.AppointmentResponse;
+import com.example.blood_donation.dto.requests.appointment.AppointmentCreationRequest;
+import com.example.blood_donation.dto.requests.appointment.AppointmentUpdateRequest;
+import com.example.blood_donation.dto.responses.appointment.AppointmentResponse;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.exception.AppException;
 import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.AppointmentMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
+import com.example.blood_donation.service.AppointmentService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

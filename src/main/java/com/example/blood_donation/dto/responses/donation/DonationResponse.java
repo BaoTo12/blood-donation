@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response.donation;
+package com.example.blood_donation.dto.responses.donation;
 
 import com.example.blood_donation.enumType.DonationType;
 import lombok.Getter;

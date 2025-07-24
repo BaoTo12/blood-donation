@@ -1,7 +1,7 @@
 package com.example.blood_donation.exception;
 
 
-import com.example.blood_donation.dto.response.ErrorResponse;
+import com.example.blood_donation.dto.responses.ErrorResponse;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

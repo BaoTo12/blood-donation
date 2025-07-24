@@ -1,12 +1,12 @@
 package com.example.blood_donation.service;
 
 
-import com.example.blood_donation.dto.request.LogoutRequest;
-import com.example.blood_donation.dto.request.RefreshRequest;
-import com.example.blood_donation.dto.request.auth.AuthenticationRequest;
-import com.example.blood_donation.dto.request.auth.IntrospectRequest;
-import com.example.blood_donation.dto.response.auth.AuthenticationResponse;
-import com.example.blood_donation.dto.response.auth.IntrospectResponse;
+import com.example.blood_donation.dto.requests.LogoutRequest;
+import com.example.blood_donation.dto.requests.RefreshRequest;
+import com.example.blood_donation.dto.requests.auth.AuthenticationRequest;
+import com.example.blood_donation.dto.requests.auth.IntrospectRequest;
+import com.example.blood_donation.dto.responses.auth.AuthenticationResponse;
+import com.example.blood_donation.dto.responses.auth.IntrospectResponse;
 import com.example.blood_donation.entity.Account;
 import com.example.blood_donation.entity.InvalidatedToken;
 import com.example.blood_donation.exception.AppException;

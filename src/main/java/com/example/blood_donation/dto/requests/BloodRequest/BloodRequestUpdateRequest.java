@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.BloodRequest;
+package com.example.blood_donation.dto.requests.BloodRequest;
 
 import com.example.blood_donation.validation.DataValidRange;
 import jakarta.validation.constraints.Future;

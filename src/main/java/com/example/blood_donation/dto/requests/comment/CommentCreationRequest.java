@@ -1,5 +1,4 @@
-package com.example.blood_donation.dto.request.comment;
-
+package com.example.blood_donation.dto.requests.comment;
 
 
 import jakarta.validation.constraints.NotNull;

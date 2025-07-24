@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.request.auth;
+package com.example.blood_donation.dto.requests.auth;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

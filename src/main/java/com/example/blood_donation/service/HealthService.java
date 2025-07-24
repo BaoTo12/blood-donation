@@ -1,8 +1,8 @@
 package com.example.blood_donation.service;
 
-import com.example.blood_donation.dto.request.health.HealthCreationRequest;
-import com.example.blood_donation.dto.request.health.HealthUpdateRequest;
-import com.example.blood_donation.dto.response.health.HealthResponse;
+import com.example.blood_donation.dto.requests.health.HealthCreationRequest;
+import com.example.blood_donation.dto.requests.health.HealthUpdateRequest;
+import com.example.blood_donation.dto.responses.health.HealthResponse;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.example.blood_donation.controller;
 
-import com.example.blood_donation.dto.request.role.RoleRequest;
-import com.example.blood_donation.dto.response.ApiResponse;
-import com.example.blood_donation.dto.response.role.RoleResponse;
+import com.example.blood_donation.dto.requests.role.RoleRequest;
+import com.example.blood_donation.dto.responses.ApiResponse;
+import com.example.blood_donation.dto.responses.role.RoleResponse;
 import com.example.blood_donation.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

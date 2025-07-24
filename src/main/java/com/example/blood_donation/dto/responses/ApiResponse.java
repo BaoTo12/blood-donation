@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response;
+package com.example.blood_donation.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

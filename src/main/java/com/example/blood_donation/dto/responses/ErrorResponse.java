@@ -1,4 +1,4 @@
-package com.example.blood_donation.dto.response;
+package com.example.blood_donation.dto.responses;
 
 
 import lombok.Builder;

@@ -1,8 +1,8 @@
-package com.example.blood_donation.service;
+package com.example.blood_donation.service.impl;
 
-import com.example.blood_donation.dto.request.health.HealthCreationRequest;
-import com.example.blood_donation.dto.request.health.HealthUpdateRequest;
-import com.example.blood_donation.dto.response.health.HealthResponse;
+import com.example.blood_donation.dto.requests.health.HealthCreationRequest;
+import com.example.blood_donation.dto.requests.health.HealthUpdateRequest;
+import com.example.blood_donation.dto.responses.health.HealthResponse;
 import com.example.blood_donation.entity.Appointment;
 import com.example.blood_donation.entity.Health;
 import com.example.blood_donation.exception.AppException;
@@ -10,6 +10,7 @@ import com.example.blood_donation.exception.ErrorCode;
 import com.example.blood_donation.mapper.HealthMapper;
 import com.example.blood_donation.repository.AppointmentRepository;
 import com.example.blood_donation.repository.HealthRepository;
+import com.example.blood_donation.service.HealthService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

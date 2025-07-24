@@ -1,6 +1,6 @@
-package com.example.blood_donation.dto.response.role;
+package com.example.blood_donation.dto.responses.role;
 
-import com.example.blood_donation.dto.response.permission.PermissionResponse;
+import com.example.blood_donation.dto.responses.permission.PermissionResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
