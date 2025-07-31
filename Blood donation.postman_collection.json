@@ -1,0 +1,1539 @@
+{
+	"info": {
+		"_postman_id": "3ae0bffc-9493-4903-ac05-1b33a22354f0",
+		"name": "Blood donation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25057899"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDMzNjAzLCJpYXQiOjE3NTE0MjM2MDMsImp0aSI6IjY3OThmMjI4LThiOWMtNGVkMy1iNmJlLWVhZDBjMmRhNjI3MyIsInNjb3BlIjoiUk9MRV9TVEFGRiBSRUFEIFJPTEVfQURNSU4gUkVBRCJ9.AAXmjhd549kJftKudpfdRbuiwjadhjLayTurEzPMRWDzA9MXdzotwSX4z4mhiO6ciIih-N-lmQ7L0OeLgx4U3w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bao To san\",\r\n    \"email\": \"bat3@gmail.com\",\r\n    \"password\": \"623123123\",\r\n    \"phone\": \"812312112\",\r\n    \"gender\": \"male\",\r\n    \"address\": \"Bac Lieu\",\r\n    \"role\": \"admin\",\r\n    \"bloodGroup\": \"ab-\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\": \"Chi Bao UPDATED\",\r\n   \"gender\": \"female\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxOTkzODAyLCJpYXQiOjE3NTE5ODM4MDIsImp0aSI6IjQ2MDBhZmRmLTNiOTgtNGVmMC1hNDdmLWI5MzFjYzkyYTdiMCIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX1NUQUZGIFJFQUQgUk9MRV9BRE1JTiBSRUFEIn0.x-EHfzWGuZTtF3ilfTTy52KFbwW39NTohcDEOj5wDPXyj4GIQXa8tLdksIgjRBEw7Qkv9Xdkp3fqaLFLhRRY9w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bao To san\",\r\n    \"email\": \"batochi87@gmail.com\",\r\n    \"password\": \"123123123\",\r\n    \"phone\": \"087430351531\",\r\n    \"gender\": \"male\",\r\n    \"address\": \"Bac Lieu\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-by-ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNjc0MTIwLCJpYXQiOjE3NTA2NzA1MjAsInNjb3BlIjoiQURNSU4ifQ.fzwHiqlzff3WcBXi1_OqxgzRM5Fg6N-XxOq_arDx8X--7-JaFhaUk9VNKW1E46kzkqRYIlkqi6JHUK4KvbJd2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bao To san\",\r\n    \"email\": \"batochi87@gmail.com\",\r\n    \"password\": \"123123123\",\r\n    \"phone\": \"087430351531\",\r\n    \"gender\": \"male\",\r\n    \"address\": \"Bac Lieu\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/account/22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blog",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\": 6,\r\n    \"title\": \"aaaaaa\",\r\n    \"content\": \" Chi Bao San O Day\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/blog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"blog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Chi Bao San UPDATEd\",\r\n    \"content\": \" Chi Bao San O Day\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/blog/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\" : \"2\",\r\n    \"title\": \"Chi Bao San\",\r\n    \"content\": \" Chi Bao San O Day\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/blog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"blog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\" : \"2\",\r\n    \"title\": \"Chi Bao San\",\r\n    \"content\": \" Chi Bao San O Day\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/blog/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\" : \"2\",\r\n    \"title\": \"Chi Bao San\",\r\n    \"content\": \" Chi Bao San O Day\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/blog/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"blog_id\": \"2\",\r\n    \"account_id\": \"6\",\r\n    \"content\": \"To bao - san\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDM0MDE0LCJpYXQiOjE3NTE0MjQwMTQsImp0aSI6IjUzODYwMjMyLWY2YmEtNGRkMi1iZTQzLTU5OWM0NWU3Zjc3ZiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.P9dYq-c_Fn6-HmC13L22kq_wlZqcWW9QRil9UfqeY2sUoMVO4q7xzp8XN6VFh0F5y0hS86QtQ_5CrOhnnwj2ig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"To bao - san updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/comment/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Comment By Blog Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/comment/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BloodRequest",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDQ5MDUzLCJpYXQiOjE3NTE0MzkwNTMsImp0aSI6IjEzYjUzN2QwLTIwMWMtNDVkZC1hNmEwLWM1MjM5ZTlkN2MxNSIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.sJR9YtFqVqgcR8b0M_0QtD1zHLAjhblBt5B3FkaUPEW21kyBBOva9sFHGJ5PmqkqPNs4VextIIzicAQ2YPXvWA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\": \"10\",\r\n    \"priority\": \"HIGH\",\r\n    \"bloodGroup\": \"AB_PLUS\",\r\n    \"title\": \"Volunter donation\",\r\n    \"startTime\": \"2025-07-19\",\r\n    \"endTime\": \"2025-07-11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bloodRequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bloodRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDUwNDcxLCJpYXQiOjE3NTE0NDA0NzEsImp0aSI6IjQ3NTYxZTNmLTg5NjMtNDdkNS1iMWVkLTQzNDRiNWYzOTIwYyIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX0FETUlOIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.FTjzhZZk7s5VzEPmHfz-nImFr2ZdlotUVDgodpTImdd3rVNFq2-2ucqh5PCERj18GqZ66AjGTlvrwFkxfvhAuA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"priority\": \"HIGH\",\r\n    \"bloodGroup\": \"O_PLUS\",\r\n    \"title\": \"Volunter donation HAHA\",\r\n    \"startTime\": \"2025-08-11\",\r\n    \"endTime\": \"2025-08-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bloodRequest/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bloodRequest",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDQ5MDUzLCJpYXQiOjE3NTE0MzkwNTMsImp0aSI6IjEzYjUzN2QwLTIwMWMtNDVkZC1hNmEwLWM1MjM5ZTlkN2MxNSIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfTUVNQkVSIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.sJR9YtFqVqgcR8b0M_0QtD1zHLAjhblBt5B3FkaUPEW21kyBBOva9sFHGJ5PmqkqPNs4VextIIzicAQ2YPXvWA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\": \"11\",\r\n    \"priority\": \"low\",\r\n    \"bloodGroup\": \"a+\",\r\n    \"title\": \"Volunter donation\",\r\n    \"startTime\": \"2025-06-19\",\r\n    \"endTime\": \"2025-06-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bloodRequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bloodRequest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDUwNDcxLCJpYXQiOjE3NTE0NDA0NzEsImp0aSI6IjQ3NTYxZTNmLTg5NjMtNDdkNS1iMWVkLTQzNDRiNWYzOTIwYyIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX0FETUlOIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.FTjzhZZk7s5VzEPmHfz-nImFr2ZdlotUVDgodpTImdd3rVNFq2-2ucqh5PCERj18GqZ66AjGTlvrwFkxfvhAuA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountId\": 6,\r\n    \"requestId\": 1,\r\n    \"status\": \"APPROVED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/appointment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDUwNDcxLCJpYXQiOjE3NTE0NDA0NzEsImp0aSI6IjQ3NTYxZTNmLTg5NjMtNDdkNS1iMWVkLTQzNDRiNWYzOTIwYyIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX0FETUlOIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.FTjzhZZk7s5VzEPmHfz-nImFr2ZdlotUVDgodpTImdd3rVNFq2-2ucqh5PCERj18GqZ66AjGTlvrwFkxfvhAuA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountId\": 11,\r\n    \"requestId\": 1,\r\n    \"status\": \"PENDING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/appointment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDUwNDcxLCJpYXQiOjE3NTE0NDA0NzEsImp0aSI6IjQ3NTYxZTNmLTg5NjMtNDdkNS1iMWVkLTQzNDRiNWYzOTIwYyIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX0FETUlOIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.FTjzhZZk7s5VzEPmHfz-nImFr2ZdlotUVDgodpTImdd3rVNFq2-2ucqh5PCERj18GqZ66AjGTlvrwFkxfvhAuA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"PENDING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/appointment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNDUwNDcxLCJpYXQiOjE3NTE0NDA0NzEsImp0aSI6IjQ3NTYxZTNmLTg5NjMtNDdkNS1iMWVkLTQzNDRiNWYzOTIwYyIsInNjb3BlIjoiUk9MRV9NRU1CRVIgUkVBRCBST0xFX0FETUlOIFJFQUQgUk9MRV9TVEFGRiBSRUFEIn0.FTjzhZZk7s5VzEPmHfz-nImFr2ZdlotUVDgodpTImdd3rVNFq2-2ucqh5PCERj18GqZ66AjGTlvrwFkxfvhAuA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountId\": 11,\r\n    \"requestId\": 1,\r\n    \"status\": \"PENDING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/appointment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"appointment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Donation",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"2\",\r\n    \"donationType\": \"WHOLE_BLOOD\",\r\n    \"amount\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/donation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"donation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxNTI3MjM4LCJpYXQiOjE3NTE1MTcyMzgsImp0aSI6IjJiODAxOWQ2LWRmNGMtNGYzYS1iOGMwLWI5YThkMmVjYzgzNiIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIFJPTEVfU1RBRkYgUkVBRCBST0xFX01FTUJFUiBSRUFEIn0.wo2Y9bCpTL0PvPVUlcPDTtCjMyAVHDha-bAayFIyeoibszKCo0czYmc1EPvQndyQTBzNWTMcA4er13dsYV-Gfw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"2\",\r\n    \"donationType\": \"WHOLE_BLOOD\",\r\n    \"amount\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/donation/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"donation",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\": \"2\",\r\n    \"donationType\": \"PLATELETS\",\r\n    \"amount\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/donation/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"donation",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\" : \"2\",\r\n    \"temperature\" : \"36\",\r\n    \"weight\": \"250\",\r\n    \"heartPulse\": \"60\",\r\n    \"isGoodHealth\": true,\r\n    \"note\": \"Nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\" : \"2\",\r\n    \"temperature\" : \"36\",\r\n    \"weight\": \"250\",\r\n    \"heartPulse\": \"60\",\r\n    \"isGoodHealth\": true,\r\n    \"note\": \"Nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"weight\": \"500\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/health/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"health",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appointmentId\" : \"2\",\r\n    \"temperature\" : \"36\",\r\n    \"weight\": \"250\",\r\n    \"heartPulse\": \"60\",\r\n    \"isGoodHealth\": true,\r\n    \"note\": \"Nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/health/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"health",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Log in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Introspect",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNzczMDMzLCJpYXQiOjE3NTA3Njk0MzMsImp0aSI6IjNmZGUwN2MwLWRhZjQtNGI0MC1iZDkzLTk4ZDg2NjlhMWIyOSIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIn0.XBhlILqnqLZ4GSLgezoLymR33ngS5zCsaB-cOeZO3cZgrjylSnAZ4j0GZ98jVH-bFGCr4jsuQ3e_vem_P8ieTA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/introspect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"introspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNzczMDMzLCJpYXQiOjE3NTA3Njk0MzMsImp0aSI6IjNmZGUwN2MwLWRhZjQtNGI0MC1iZDkzLTk4ZDg2NjlhMWIyOSIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIn0.XBhlILqnqLZ4GSLgezoLymR33ngS5zCsaB-cOeZO3cZgrjylSnAZ4j0GZ98jVH-bFGCr4jsuQ3e_vem_P8ieTA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNzc4NjEzLCJpYXQiOjE3NTA3NzUwMTMsImp0aSI6IjdlZDczMDAwLTBmNDgtNDQ4Yi04YTE5LTliZDZlODAwNWZkMSIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIn0.HxqMx2ZWcJVWfR3pOwUvwjNUkQJACZCGAv465wuSQiievuSWIETkzbK2S_l1a2nriv6y6Zl8d9w4Q9BjJSBigQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "JSESSIONID",
+								"value": "6ABDD93DD89EE81F2D34226BB36DA11D",
+								"type": "text"
+							},
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "rml4-EgB3wwwjyf7APamKpLwXrFriz5eK8iVpIJDOKYKv-1Cml8czHA2uzQd7RKaM9uSGPDJc9AP7gtzGvn2xbF3XZQ6iIx6",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Minh Long\",\r\n    \"email\": \"minhlongwa1@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"33636366\",\r\n    \"gender\": \"male\",\r\n    \"address\": \"Bac Lieu\",\r\n    \"roles\": [\"STAFF\"],\r\n    \"bloodGroup\": \"O_PLUS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permission",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxMzUyMTE1LCJpYXQiOjE3NTEzNTIxMDUsImp0aSI6IjJhZDk5OTI0LTYzNzEtNDU5MS1iY2E5LWFkMWU4Y2I0MzBkNSIsInNjb3BlIjoiIn0.PkvTmvtIhnHe5q5vjpc3GqGtwipNnD-LxpfaeytKpntJaspjSk6iN70r_k0A4ZXMlE_UmqEWzS9yKWp8TXk2sw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"READ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/permission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNjgxOTAxLCJpYXQiOjE3NTA2NzgzMDEsInNjb3BlIjoiQURNSU4ifQ.lHqERaNzQG-dt7s2S_jyV_L7qQ3UzmQpvU30nrUEBwWRpaKukVQfgtqBxQXGlf7IXxU62t9HTxiw4LF3SjsaGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/permission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNjgxOTAxLCJpYXQiOjE3NTA2NzgzMDEsInNjb3BlIjoiQURNSU4ifQ.lHqERaNzQG-dt7s2S_jyV_L7qQ3UzmQpvU30nrUEBwWRpaKukVQfgtqBxQXGlf7IXxU62t9HTxiw4LF3SjsaGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/permission/READ",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"permission",
+								"READ"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUxMzYyNDY3LCJpYXQiOjE3NTEzNTI0NjcsImp0aSI6ImJkYzFjOGNkLTNjMjgtNDY4OC1hZDY2LTc2OTkzNGM5YmJkMCIsInNjb3BlIjoiUk9MRV9BRE1JTiBSRUFEIn0.tBtdv76hn6U4aFQ80Bqby1UhN5C5VPPxtbNdZy0kxxsdqxsD4nwSjbI4IPT2PRjX00JVFijvJeJDE2DV2BJiRw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"MEMBER\",\r\n        \"permissions\": [\"READ\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNjgxOTAxLCJpYXQiOjE3NTA2NzgzMDEsInNjb3BlIjoiQURNSU4ifQ.lHqERaNzQG-dt7s2S_jyV_L7qQ3UzmQpvU30nrUEBwWRpaKukVQfgtqBxQXGlf7IXxU62t9HTxiw4LF3SjsaGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJjaGliYW9zYW4uY29tIiwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzUwNjgxOTAxLCJpYXQiOjE3NTA2NzgzMDEsInNjb3BlIjoiQURNSU4ifQ.lHqERaNzQG-dt7s2S_jyV_L7qQ3UzmQpvU30nrUEBwWRpaKukVQfgtqBxQXGlf7IXxU62t9HTxiw4LF3SjsaGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
